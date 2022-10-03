@@ -1,0 +1,23 @@
+<template>
+    <div>
+        <lightning-button icon-name="action:refresh"
+            icon-position="right"
+            variant="brand" value="refresh table"
+            onclick={handleRefresh} >
+        </lightning-button>
+    </div>
+    <div >
+        <template if:true={records}>
+            <lightning-datatable
+                key-field="id"
+                data={records}
+                columns={columns}
+                onrowaction={handleRowAction}
+                >
+            </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            <c-error-panel errors={error} friendly-message="Error While Fetching Records" ></c-error-panel>
+        </template>
+    </div>
+</template>

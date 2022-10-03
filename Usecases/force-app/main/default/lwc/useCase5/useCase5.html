@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="LWC usecase5">            
+        
+        <div class="slds-m-around_medium">
+                 
+                <lightning-layout-item flexibility="auto"  padding="around-small">
+                    <lightning-input label="Enter Contact Name"
+                                    type="search" 
+                                    onchange={searchContact} 
+                                    value={searchKey}>
+                    </lightning-input>
+                </lightning-layout-item><br/> <br/>
+
+                
+                <lightning-layout-item class="slds-p-left_xx-small"  padding="around-small">
+                    <lightning-button label="Search" onclick={doSearch}></lightning-button>
+                </lightning-layout-item> 
+
+                        <lightning-layout-item class="slds-m-bottom_small slds-align_absolute-center">  
+                            <template if:true={contacts}>                        
+                                <template for:each={contacts} for:item="contact">                        
+                                  <li key={contact.Id}>  {contact.Name} </li>
+                                </template>
+                            </template>
+                            <template if:true={error}>
+                                {error}>
+                            </template>
+                        </lightning-layout-item>   
+                         
+        </div>
+      
+      </lightning-card>
+</template>

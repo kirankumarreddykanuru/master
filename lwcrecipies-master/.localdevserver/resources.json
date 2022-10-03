@@ -1,0 +1,34 @@
+{
+    "80f59dd7e1": {
+        "view://preview@en_US": {
+            "dev": "d0a147cb27"
+        },
+        "component://force/lds@en_US": {
+            "dev": "fd178fdf6c"
+        },
+        "view://mainLayout@en_US": {
+            "dev": "86c25945d9"
+        },
+        "view://home@en_US": {
+            "dev": "bf81bce448"
+        },
+        "component://c/dragDrop@en_US": {
+            "dev": "cb7e4d99a8"
+        },
+        "component://c/beerList@en_US": {
+            "dev": "eba22d6aae"
+        },
+        "component://c/uiRecordApiDemo@en_US": {
+            "dev": "796c04e42e"
+        },
+        "component://c/cartDetail@en_US": {
+            "dev": "ceb3ed3e5b"
+        },
+        "component://c/iteratorDemo@en_US": {
+            "dev": "d4ffa3f0d6"
+        },
+        "component://c/apexImperativeMethod@en_US": {
+            "dev": "6e69115a93"
+        }
+    }
+}

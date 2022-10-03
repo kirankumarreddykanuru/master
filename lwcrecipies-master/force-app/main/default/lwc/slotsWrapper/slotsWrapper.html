@@ -1,0 +1,16 @@
+<template>
+        <div class="slds-m-around_around">
+            <h1>Shadow Dom Demo</h1>
+            {message}
+        </div>
+    <div class="slds-m-around_around">
+
+        <slot >
+            <c-slots-demo ></c-slots-demo>
+        </slot>
+       
+    </div>
+    <div class="slds-m-around_around">
+        <c-named-slot ></c-named-slot>
+    </div>
+</template>

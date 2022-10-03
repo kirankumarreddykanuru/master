@@ -1,0 +1,408 @@
+<template>
+    <div style="height: 300px;">
+
+        <lightning-datatable key-field="id" data={data} columns={columns}>
+
+        </lightning-datatable>
+
+    </div>
+
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered"
+        aria-label="Example default base table of Opportunities">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="A/C type"> A/C type</div>
+                </th>
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="# of A/Cs Sourced (with IP)"># of A/Cs Sourced (with IP)</div>
+                </th>
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="Trade Active A/C(out of A/Cs sourced)">Trade Active A/C(out of
+                        A/Cs sourced)</div>
+                </th>
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="Product Weightage">Product Weightage</div>
+                </th>
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="Total CA – 50K (Equivalent A/Cs)">Total CA – 50K (Equivalent A/Cs)
+                    </div>
+                </th>
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="Target">Target</div>
+                </th>
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="Gap">Gap</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1">CA -2 Lac </a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title="2">2</div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title="1">1</div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title="2.5">2.5</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="6">6</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1">CA -1 Lac </a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title="2">2</div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title="1">1</div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title="1.5">1.5</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="4">4</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1">CA -50 K </a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title="4">4</div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title="0">0</div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title="1">1</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="4">4</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1">CA -25 K </a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title="3">3</div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title="1">1</div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title="0.5">0.5</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="2.5">2.5</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1">CA -10 K </a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title="1">1</div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title="0">0</div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title="0.25">0.25</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="1.25">1.25</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1">TASC-50K and above</a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title="1">1</div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title="-">-</div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title="0.2">0.2</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="0.2">0.2</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1"> HH-25k</a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title="3">3</div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title="-">-</div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title="0.33">0.33</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="0">0</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1">HH-10K</a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title="0">0</div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title="-">-</div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title="0.2">0.2</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="0">0</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row">
+                    <div title="A/C type">
+                        <a href="#" tabindex="-1">Total</a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)">
+                    <div title=""></div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced">
+                    <div title=""></div>
+                </td>
+                <td data-label="Product Weightage">
+                    <div title=""></div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)">
+                    <div title="18">18</div>
+                </td>
+                <td data-label="Target">
+                    <div title=" ">18 </div>
+                </td>
+                <td data-label="Gap">
+                    <div title=" "> 0 </div>
+                </td>
+            </tr>
+            <tr class="slds-hint-parent">
+                <th data-label="A/C type" scope="row" style="background-color:gray ;">
+                    <div title="A/C type" class="txt_wht">
+                        <a href="#" tabindex="-1" font="#b6575e;"> Meeting Performence star Criteria</a>
+                    </div>
+                </th>
+                <td data-label="# of A/Cs Sourced (with IP)" style="background-color: gray;">
+                    <div title=""> </div>
+                </td>
+                <td data-label="Trade Active A/C(out of A/Cs sourced" style="background-color: gray;">
+                    <div title=""> </div>
+                </td>
+                <td data-label="Product Weightage" style="background-color: gray;">
+                    <div title=" "> </div>
+                    <div>yes</div>
+                </td>
+                <td data-label="Total CA – 50K (Equivalent A/Cs)" style="background-color: gray;">
+                    <div title=""></div>
+                </td>
+                <td data-label="Target" style="background-color: gray;">
+                    <div title=" "> </div>
+                </td>
+                <td data-label="Gap" style="background-color: gray;">
+                    <div title=" "> </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </lightning:accordionSection>
+    <lightning-accordion-Section name="B" label="CASA AMB">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered"
+            aria-label="Example default base table of Opportunities">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col" style="background-color: #b6575e;">
+                        <div class="slds-truncate" title="A/C"> A/C</div>
+                    </th>
+                    <th class="" scope="col" style="background-color: #b6575e;">
+                        <div class="slds-truncate" title="AMB M0(in lacs)">AMB M0(in lacs)</div>
+                    </th>
+                    <th class="" scope="col" style="background-color: #b6575e;">
+                        <div class="slds-truncate" title="Target">Target</div>
+                    </th>
+                    <th class="" scope="col" style="background-color: #b6575e;">
+                        <div class="slds-truncate" title="Gsp">Gap</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="slds-hint-parent">
+                    <th data-label="A/C type" scope="row">
+                        <div title="A/C type">
+                            <a href="#" tabindex="-1">CA </a>
+                        </div>
+                    </th>
+                    <td data-label="AMB M0(in lacs)">
+                        <div title="25">25</div>
+                    </td>
+                    <td data-label="Target">
+                        <div title=" "> </div>
+                    </td>
+                    <td data-label="Gap">
+                        <div title=" "> </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th data-label="A/C type" scope="row">
+                        <div title="A/C type">
+                            <a href="#" tabindex="-1">SA </a>
+                        </div>
+                    </th>
+                    <td data-label="AMB M0(in lacs)">
+                        <div title="45">45</div>
+                    </td>
+                    <td data-label="Target">
+                        <div title=" "> </div>
+                    </td>
+                    <td data-label="Gap">
+                        <div title=" "> </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th data-label="A/C type" scope="row">
+                        <div title="A/C type">
+                            <a href="#" tabindex="-1">CASA </a>
+                        </div>
+                    </th>
+                    <td data-label="AMB M0(in lacs)">
+                        <div title="70">70</div>
+                    </td>
+                    <td data-label="Target">
+                        <div title="100">100</div>
+                    </td>
+                    <td data-label="Gap">
+                        <div title=" 30">30 </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th data-label="Meeting Performance Star Criteria" scope="row" style="background-color: gray;">
+                        <div title="Meeting Performance Star Criteria" class="txt_wht">
+                            <a href="#" tabindex="-1">Meeting performence star cretia </a>
+                        </div>
+                    </th>
+                    <td data-label="AMB M0(in lacs)" style="background-color: gray;">
+                        <div title=""></div>
+                        <div> No</div>
+                    </td>
+                    <td data-label="Target" style="background-color: gray;">
+                        <div title=""></div>
+                    </td>
+                    <td data-label="Gap" style="background-color: gray;">
+                        <div title=" "> </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </lightning-accordion-Section>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered"
+        aria-label="Example default base table of Opportunities">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="Decile"> Decile</div>
+                </th>
+                <th class="" scope="col" style="background-color: #b6575e;">
+                    <div class="slds-truncate" title="3">3</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="slds-hint-parent">
+                <th data-label="Decile" scope="row" style="background-color:gray;">
+                    <div title="Decile" class="txt_wht">
+                        <a href="#" tabindex="-1">Decile</a>
+                    </div>
+                </th>
+                <td data-label="meeting performence star cretia " style="background-color: gray;">
+                    <div title="Yes">Yes</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</template>

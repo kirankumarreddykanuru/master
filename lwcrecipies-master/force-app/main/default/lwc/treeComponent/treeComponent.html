@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Tree Grid Example" icon-name="custom:custom23">
+        <div class="slds-m-around_small">
+            <lightning-button
+                variant="brand"
+                label="Collapse All"
+                onclick={clickToCollapseAll}>
+            </lightning-button>
+        </div>
+        <div class="slds-m-around_small">
+            <lightning-button
+                variant="brand"
+                label="Get Expanded"
+                onclick={clickToGetExpanded}>
+            </lightning-button>
+            <p>Expanded currently : {currentExpandedStr}</p>
+        </div>
+        <lightning-tree-grid
+            data={data}
+            columns={columns}
+            key-field="name"
+            expanded-rows={currentExpanded}>
+        </lightning-tree-grid>
+    </lightning-card>
+</template>

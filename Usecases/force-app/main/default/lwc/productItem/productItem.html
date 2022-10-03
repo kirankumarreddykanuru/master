@@ -1,0 +1,98 @@
+<template >
+
+     <div class="slds-clearfix " style='z-index :1 ;'  >
+        <div slot="footer" class="slds-var-m-vertical_medium">
+
+            <c-pagination records={products} onupdate={updateContactHandler}></c-pagination>
+        
+        </div>
+     <lightning-card>
+       
+       <lightning-input class="slds-p-around_small" type="search" onchange={keysearch} label="search"></lightning-input>
+        
+            <lightning-button slot="actions" label = "Add to Cart" variant="brand" 
+           title = "Generate Quote" 
+            onclick = {handleQuoteGeneration} ></lightning-button>
+        
+     </lightning-card>
+    </div>
+    
+    
+    
+     <div class="slds-grid slds-wrap split right"  >
+       <template for:each={visibleContacts} for:item="c" for:index="index">
+
+   
+
+        <div key={c.productId} class="slds-col slds-size_1-of-4 slds-p-around_x-small">
+            <lightning-card title={c.productName}  style="height:256px; width:656px "> 
+
+                                    
+                    <img
+                    src={c.productPictureUrl}
+                    class="card-img-top img-fluid"
+                    alt="Product picture"
+                    border="0" style="height:200px; width:656px"
+                    />
+      
+        <p class="slds-p-top_medium slds-m-left_small">{c.productName}</p>
+        <div  slot="footer" class="center">
+
+         <div class="slds-grid_align-end">   
+        <lightning-button label="+" title="+" onclick={handleQuantityIncrease} data-id={c.productId}></lightning-button>
+        <!-- <lightning-input label="Quantity"></lightning-input> -->
+        <lightning-button label={c.productQuantity} title={c.productQuantity}></lightning-button>
+        <lightning-button label="-" title="-" onclick={handleQuantityDecrease} data-id={c.productId}></lightning-button>
+        </div>
+       </div>
+    </lightning-card>
+
+    <!-- <lightning-button label ="" -->
+</div>
+
+
+   
+    </template>
+    
+    
+</div>
+
+
+
+<template if:true={openDialog}>
+<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+    <header class="slds-modal__header">
+    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeDialog}>
+    <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+    </svg>
+    <span class="slds-assistive-text">Close</span>
+    </button>
+    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Request Quotation</h2>
+    <p class="slds-m-top_x-small">
+    </p>
+    </header>
+    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        
+        
+            <lightning-record-form
+           
+                object-api-name= {opportunityObject}
+                fields={myFields}
+                
+                onsuccess={handleOppCreation}> 
+            </lightning-record-form>
+        
+    </div>
+    
+
+    
+
+    </footer>
+    </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+   </template>
+
+</template>

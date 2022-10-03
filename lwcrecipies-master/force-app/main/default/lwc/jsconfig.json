@@ -1,0 +1,241 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/accountObject": [
+                "accountObject/accountObject.js"
+            ],
+            "c/addressComponent": [
+                "addressComponent/addressComponent.js"
+            ],
+            "c/apexImperativeMethod": [
+                "apexImperativeMethod/apexImperativeMethod.js"
+            ],
+            "c/apiFunction": [
+                "apiFunction/apiFunction.js"
+            ],
+            "c/beerList": [
+                "beerList/beerList.js"
+            ],
+            "c/beerSearch": [
+                "beerSearch/beerSearch.js"
+            ],
+            "c/beerTile": [
+                "beerTile/beerTile.js"
+            ],
+            "c/boundary": [
+                "boundary/boundary.js"
+            ],
+            "c/calculatorCmp": [
+                "calculatorCmp/calculatorCmp.js"
+            ],
+            "c/cartDetail": [
+                "cartDetail/cartDetail.js"
+            ],
+            "c/cartItem": [
+                "cartItem/cartItem.js"
+            ],
+            "c/childAuraLwc": [
+                "childAuraLwc/childAuraLwc.js"
+            ],
+            "c/childComp": [
+                "childComp/childComp.js"
+            ],
+            "c/contactList": [
+                "contactList/contactList.js"
+            ],
+            "c/contactListPubSub": [
+                "contactListPubSub/contactListPubSub.js"
+            ],
+            "c/contactTile": [
+                "contactTile/contactTile.js"
+            ],
+            "c/createContact": [
+                "createContact/createContact.js"
+            ],
+            "c/customLabel": [
+                "customLabel/customLabel.js"
+            ],
+            "c/customLookup": [
+                "customLookup/customLookup.js"
+            ],
+            "c/designAttribute": [
+                "designAttribute/designAttribute.js"
+            ],
+            "c/dragDrop": [
+                "dragDrop/dragDrop.js"
+            ],
+            "c/errorPanel": [
+                "errorPanel/errorPanel.js"
+            ],
+            "c/example": [
+                "example/example.js"
+            ],
+            "c/fileUpload": [
+                "fileUpload/fileUpload.js"
+            ],
+            "c/getRecord": [
+                "getRecord/getRecord.js"
+            ],
+            "c/grandchild": [
+                "grandchild/grandchild.js"
+            ],
+            "c/helloBinding": [
+                "helloBinding/helloBinding.js"
+            ],
+            "c/helloWorld": [
+                "helloWorld/helloWorld.js"
+            ],
+            "c/hooksExamples": [
+                "hooksExamples/hooksExamples.js"
+            ],
+            "c/htmlEventsBasic": [
+                "htmlEventsBasic/htmlEventsBasic.js"
+            ],
+            "c/ifElseDemo": [
+                "ifElseDemo/ifElseDemo.js"
+            ],
+            "c/itemListComponent": [
+                "itemListComponent/itemListComponent.js"
+            ],
+            "c/iteratorDemo": [
+                "iteratorDemo/iteratorDemo.js"
+            ],
+            "c/ldsCreateRecord": [
+                "ldsCreateRecord/ldsCreateRecord.js"
+            ],
+            "c/ldsDemo": [
+                "ldsDemo/ldsDemo.js"
+            ],
+            "c/ldsEditRecord": [
+                "ldsEditRecord/ldsEditRecord.js"
+            ],
+            "c/ldsViewRecord": [
+                "ldsViewRecord/ldsViewRecord.js"
+            ],
+            "c/lwc2Aura": [
+                "lwc2Aura/lwc2Aura.js"
+            ],
+            "c/lwcFormGenerator": [
+                "lwcFormGenerator/lwcFormGenerator.js"
+            ],
+            "c/lwcaura": [
+                "lwcaura/lwcaura.js"
+            ],
+            "c/metaExaples": [
+                "metaExaples/metaExaples.js"
+            ],
+            "c/multiPicklist": [
+                "multiPicklist/multiPicklist.js"
+            ],
+            "c/multilineedit": [
+                "multilineedit/multilineedit.js"
+            ],
+            "c/namedSlot": [
+                "namedSlot/namedSlot.js"
+            ],
+            "c/newItemComponent": [
+                "newItemComponent/newItemComponent.js"
+            ],
+            "c/newRecord": [
+                "newRecord/newRecord.js"
+            ],
+            "c/objectInfoAPI": [
+                "objectInfoAPI/objectInfoAPI.js"
+            ],
+            "c/opportunityDetails": [
+                "opportunityDetails/opportunityDetails.js"
+            ],
+            "c/orderDetail": [
+                "orderDetail/orderDetail.js"
+            ],
+            "c/parentComp": [
+                "parentComp/parentComp.js"
+            ],
+            "c/picklistComponent": [
+                "picklistComponent/picklistComponent.js"
+            ],
+            "c/picklistComponentDemo": [
+                "picklistComponentDemo/picklistComponentDemo.js"
+            ],
+            "c/propDemo": [
+                "propDemo/propDemo.js"
+            ],
+            "c/pubSubModel": [
+                "pubSubModel/pubSubModel.js"
+            ],
+            "c/pubsub": [
+                "pubsub/pubsub.js"
+            ],
+            "c/quickActionService": [
+                "quickActionService/quickActionService.js"
+            ],
+            "c/quickCase": [
+                "quickCase/quickCase.js"
+            ],
+            "c/recordList": [
+                "recordList/recordList.js"
+            ],
+            "c/searchComponent": [
+                "searchComponent/searchComponent.js"
+            ],
+            "c/sharedmisc": [
+                "sharedmisc/sharedmisc.js"
+            ],
+            "c/showDate": [
+                "showDate/showDate.js"
+            ],
+            "c/showToast": [
+                "showToast/showToast.js"
+            ],
+            "c/sibling": [
+                "sibling/sibling.js"
+            ],
+            "c/sibling1": [
+                "sibling1/sibling1.js"
+            ],
+            "c/slotsDemo": [
+                "slotsDemo/slotsDemo.js"
+            ],
+            "c/slotsWrapper": [
+                "slotsWrapper/slotsWrapper.js"
+            ],
+            "c/spinner": [
+                "spinner/spinner.js"
+            ],
+            "c/ssample": [
+                "ssample/ssample.js"
+            ],
+            "c/treeComponent": [
+                "treeComponent/treeComponent.js"
+            ],
+            "c/uiRecordApiDemo": [
+                "uiRecordApiDemo/uiRecordApiDemo.js"
+            ],
+            "c/utility": [
+                "utility/utility.js"
+            ],
+            "c/utils": [
+                "utils/utils.js"
+            ],
+            "c/wireMethod": [
+                "wireMethod/wireMethod.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    },
+    "paths": {
+        "c/*": [
+            "*"
+        ]
+    }
+}

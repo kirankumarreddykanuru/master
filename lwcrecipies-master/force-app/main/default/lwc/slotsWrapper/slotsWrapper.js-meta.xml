@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="slotsWrapper">
+    <apiVersion>46.0</apiVersion>
+    <isExposed>true</isExposed>
+    <!--  <decription>This component is used for slots in LWC</decription> -->
+    <masterLabel>Slots Exaples</masterLabel>
+    <targets>
+        <target>
+            lightning__AppPage
+        </target>
+        <target>
+            lightning__HomePage
+        </target>
+        <target>
+            lightning__RecordPage
+        </target>
+        
+        <target>
+            lightningCommunity__Default
+        </target>
+        <target>
+            lightningCommunity__Page
+        </target>
+        <target>
+            lightning__Inbox
+        </target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage" >
+            <property name="message" type="String"/>
+            <objects>
+                <object>Opportunity</object>
+                <object>Account</object>
+            </objects>
+        </targetConfig>
+        
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,171 @@
+<template>
+   <lightning-card title="Edit Record - New Record" icon-name="standard:record" class="slds-m-around_small">
+      <div class="slds-p-around_small">
+         <lightning-button label="Save Record" value="Save Record" onclick={saveRecord} variant="brand" ></lightning-button>
+      </div>
+      <div class="slds-grid slds-wrap">
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Name" label="Account Name" value={AccountObject.Name} required ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Type" label="Account Type" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-custom-lookup label="Parent Account " variant="label-stacked" object-api-name="Account" iconname="standard:record" field-api-name="Name" relationshipfield ="Parentid" onlookup={handleLookupSelect} ></c-custom-lookup>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-textarea onchange={handleInputChange} name="Billingstreet" label="Billing Street" value={AccountObject.Billingstreet} ></lightning-textarea>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Billingcity" label="Billing City" value={AccountObject.Billingcity} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Billingstate" label="Billing State/Province" value={AccountObject.Billingstate} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Billingpostalcode" label="Billing Zip/Postal Code" value={AccountObject.Billingpostalcode} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Billingcountry" label="Billing Country" value={AccountObject.Billingcountry} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="number" step="1" name="Billinglatitude" label="Billing Latitude" value={AccountObject.Billinglatitude} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="number" step="1" name="Billinglongitude" label="Billing Longitude" value={AccountObject.Billinglongitude} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Billinggeocodeaccuracy" label="Billing Geocode Accuracy" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-textarea onchange={handleInputChange} name="Shippingstreet" label="Shipping Street" value={AccountObject.Shippingstreet} ></lightning-textarea>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Shippingcity" label="Shipping City" value={AccountObject.Shippingcity} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Shippingstate" label="Shipping State/Province" value={AccountObject.Shippingstate} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Shippingpostalcode" label="Shipping Zip/Postal Code" value={AccountObject.Shippingpostalcode} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Shippingcountry" label="Shipping Country" value={AccountObject.Shippingcountry} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="number" step="1" name="Shippinglatitude" label="Shipping Latitude" value={AccountObject.Shippinglatitude} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="number" step="1" name="Shippinglongitude" label="Shipping Longitude" value={AccountObject.Shippinglongitude} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Shippinggeocodeaccuracy" label="Shipping Geocode Accuracy" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Phone" label="Account Phone" value={AccountObject.Phone} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Fax" label="Account Fax" value={AccountObject.Fax} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Accountnumber" label="Account Number" value={AccountObject.Accountnumber} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="url" name="Website" label="Website" value={AccountObject.Website} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Sic" label="SIC Code" value={AccountObject.Sic} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Industry" label="Industry" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="number" step="1" formatter="currency" name="Annualrevenue" label="Annual Revenue" value={AccountObject.Annualrevenue} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="number" step="1" name="Numberofemployees" label="Employees" value={AccountObject.Numberofemployees} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Ownership" label="Ownership" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Tickersymbol" label="Ticker Symbol" value={AccountObject.Tickersymbol} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-textarea onchange={handleInputChange} name="Description" label="Account Description" value={AccountObject.Description} ></lightning-textarea>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Rating" label="Account Rating" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Site" label="Account Site" value={AccountObject.Site} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-custom-lookup label="Owner " variant="label-stacked" object-api-name="User" iconname="standard:record" field-api-name="Name" relationshipfield ="Ownerid" onlookup={handleLookupSelect} ></c-custom-lookup>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Jigsaw" label="Data.com Key" value={AccountObject.Jigsaw} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Accountsource" label="Account Source" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Dunsnumber" label="D-U-N-S Number" value={AccountObject.Dunsnumber} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Tradestyle" label="Tradestyle" value={AccountObject.Tradestyle} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Naicscode" label="NAICS Code" value={AccountObject.Naicscode} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Naicsdesc" label="NAICS Description" value={AccountObject.Naicsdesc} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Yearstarted" label="Year Started" value={AccountObject.Yearstarted} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Sicdesc" label="SIC Description" value={AccountObject.Sicdesc} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-custom-lookup label="D&B Company " variant="label-stacked" object-api-name="DandBCompany" iconname="standard:record" field-api-name="Name" relationshipfield ="Dandbcompanyid" onlookup={handleLookupSelect} ></c-custom-lookup>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Customerpriority__c" label="Customer Priority" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Sla__c" label="SLA" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Active__c" label="Active" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="number" step="1" name="Numberoflocations__c" label="Number of Locations" value={AccountObject.Numberoflocations__c} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-picklist-component onselected={handlePickListSelect} object-api-name="Account" field-api-name="Upsellopportunity__c" label="Upsell Opportunity" ></c-picklist-component>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="text" name="Slaserialnumber__c" label="SLA Serial Number" value={AccountObject.Slaserialnumber__c} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="date" name="Slaexpirationdate__c" date-style="long" label="SLA Expiration Date" value={AccountObject.Slaexpirationdate__c} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="datetime" name="Created_time__c" label="Created Time" value={AccountObject.Created_time__c} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="number" step="0.01" formatter="percent" name="Benifit__c" label="Benifit" value={AccountObject.Benifit__c} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-input onchange={handleInputChange} type="email" name="Email__c" label="Email" value={AccountObject.Email__c} ></lightning-input>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <lightning-textarea onchange={handleInputChange} name="Description__c" label="Description" value={AccountObject.Description__c} ></lightning-textarea>
+         </div>
+         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+            <c-multi-picklist onmulselected={handlePickListSelect} object-api-name="Account" field-api-name="Type__c" label="Type" ></c-multi-picklist>
+         </div>
+      </div>
+   </lightning-card>
+</template>

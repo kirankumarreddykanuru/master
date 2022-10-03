@@ -1,0 +1,817 @@
+<!--
+
+  Author:         Vijaychandra Amaraneni  
+  Company:        MOURI TECH
+  Description:    to provide pricing action functionality for Product managers 
+  Handler:        SI_PricingAction_Controller
+  Test Class:     
+ 
+  History:
+ <Date>       `  <Author Name>          <Brief Description of Change>     <Ticket No>
+2/Jan/2020     Vijaychandra Amaraneni        Initial Creation             (*******)
+5/Jun/2021     Vijaychandra Amaraneni        changing table UI            (*******) 
+-->
+<template>
+    <div class="slds-card">
+    <lightning-card class="slds-m-bottom_x-small cardClass" title="Filters" icon-name="utility:filter">
+        <lightning-layout multiple-rows="true" vertical-align="center">
+            <lightning-layout-item size="2" padding="around-small">
+                <c-lwc-reusable-custom-lookup-cmp lookup-label="Products" object-api-name="Product2" selected-record-id={product} selected-value={productName}
+                        icon-name="standard:product_item" onrecordselection={onProductSelection} field-set={prodcutFeildSet} column-labels={productColumnLabels}
+                         search-field={productExtraSearchField}></c-lwc-reusable-custom-lookup-cmp>
+                <!--<c-lwc-custom-lookup-cmp lookup-label='Product' object-api-name="Product2"
+                 icon-name="standard:product_item" onrecordselection={onProductSelection}></c-lwc-custom-lookup-cmp>-->
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+                <c-lwc-reusable-custom-lookup-cmp lookup-label="Accounts" object-api-name="Account" selected-record-id={account} selected-value={accountName}
+                icon-name="standard:account" filters={accountFilters} onrecordselection={onAccountSelection} field-set={accountFieldSet} column-labels={accountColumnLabels} search-field={accountextraSearchField}></c-lwc-reusable-custom-lookup-cmp>
+                <!--<c-lwc-custom-lookup-cmp lookup-label='Account' object-api-name="Account"
+                 icon-name="standard:account" filters={accountFilters} onrecordselection={onAccountSelection}></c-lwc-custom-lookup-cmp>-->
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+                <lightning-combobox name="Region" label="Pricing Region"
+                options={filterOptions.regionOptions} onchange={handleChange} value={region}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+                <lightning-combobox name="ProductForm" label="Product Form"
+               options={filterOptions.productFormOptions} onchange={handleChange} value={productForm}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+                <lightning-combobox name="ProductPackage" label="Product Package"
+                options={filterOptions.productPackageOptions} onchange={handleChange} value={productPackage}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+                <lightning-combobox name="ProductFunctionality" label="Product Functionality"
+                options={filterOptions.productFunctionalityOptions} onchange={handleChange} value={productFunctionality}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="3" padding="around-small">
+                <lightning-combobox name="ManufacturingPlant" value={manufacturingPlant} onchange={handleChange} label="Manufacturing Plant" options={filterOptions.plantOptions}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+                <lightning-combobox name="ProductManager" value={productManager} onchange={handleChange} label="Product Manager" options={filterOptions.pmOptions}></lightning-combobox>
+            </lightning-layout-item>
+            <template if:true={hideAmFilter}>
+                <lightning-layout-item size="2" padding="around-small">
+                    <lightning-combobox name="AccountManager" value={accountManager} onchange={handleChange} label="Account Manager" options={filterOptions.amOptions}></lightning-combobox>
+                </lightning-layout-item>
+            </template>
+            <lightning-layout-item size="2" padding="around-small">
+                <!--<template if:true={priceRecordStatusValues.data}>-->
+                <lightning-combobox name="PriceRecordType" value={priceRecordType} onchange={handleChange} label="PriceRecordType" options={priceTypeOptions}></lightning-combobox>
+                <!--</template>-->
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+                <!--<template if:true={priceRecordStatusValues.data}>-->
+                <lightning-combobox name="Status" value={status} onchange={handleChange} label="Status" options={filterOptions.statusOptions}></lightning-combobox>
+                <!--</template>-->
+            </lightning-layout-item>
+            <!--<lightning-layout-item size="2" padding="around-small">
+                <lightning-combobox name="CurrencyIsoCodes" value={currencyTypeVal} onchange={handleChange} label="Currency" options={filterOptions.currencyOptions}></lightning-combobox>
+            </lightning-layout-item>-->
+            <lightning-layout-item size="2" padding="around-small">
+                <lightning-combobox name="FetchPriceRecordsFrom" value={priceRecordsFrom} onchange={handleChange} label="Fetch Price records from" options={prFromOptions}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small" class="slds-m-top_medium">
+                <lightning-input name="BelowFloorPrice" type="checkbox" value={isBelowFloorPrice} checked={isBelowFloorPrice} onchange={handleChange} label="Below Floor Price"></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small" class="slds-m-top_medium">
+                <lightning-input name="BelowTargetPrice" type="checkbox" value={isBelowTargetPrice} checked={isBelowTargetPrice} onchange={handleChange} label="Below Target Price"></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="3" padding="horizontal-small" class="slds-m-bottom_x-small slds-m-top_large">
+                <lightning-button  label="Apply Filters" name="ApplyFilters" onclick={handleApplyFilters}  variant="brand"></lightning-button>
+                <lightning-button class="slds-p-left_small" label="Reset" name="ClearFilters" onclick={handleClearFilters}></lightning-button> 
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="...Loading" size="medium"></lightning-spinner>
+    </template>
+    <lightning-card>
+        <lightning-accordion active-section-name="PriceRecords" allow-multiple-sections-open='true'>
+            <lightning-accordion-section name="Prices" label="Product Information">
+                <template if:true={priceData.length}>
+                    <div style="height:450px;" class="myTable tableHover">
+                <lightning-datatable class="slds-table_striped"
+                        key-field="Id"
+                        hide-checkbox-column="true"
+                        data={priceData}
+                        columns={priceColumns}>
+                </lightning-datatable>
+            </div>
+            </template>
+            <template if:false={priceData.length}>
+                <div class="slds-text-align--center">
+               <b> No Price Available OR No product is selected</b>
+                </div>
+            </template>
+            </lightning-accordion-section>
+            <lightning-accordion-section name="PriceRecords" label="Price Records">
+                        <template if:true={priceRecordsRealData.length}>
+                            <template if:false={hideCheckbox}>
+                            <lightning-layout  class="slds-p-bottom_small" vertical-align="end">
+                                <lightning-layout-item size="2" padding="horizontal-small">
+                                    <lightning-combobox label="Type" value={priceVariant} onchange={handlePriceVariant} options={priceVariantOptions}></lightning-combobox> 
+                                </lightning-layout-item>
+                               <lightning-layout-item size="2"> 
+                                   <lightning-input label="Amount Of Price Change" step=".01" value={newPrice} type="number" onchange={handleNewPrice} ></lightning-input>
+                               </lightning-layout-item>
+                               <lightning-layout-item size="2" padding="horizontal-small">
+                                   <lightning-input label="Validity From"  value={newValidFrom} type="date" placeholder={dateFormat}  onchange={handleNewValidFrom}></lightning-input>
+                               </lightning-layout-item>
+                               <lightning-layout-item size="2" padding="horizontal-small">
+                                <lightning-input label="Validity To"  value={newValidTo} type="date" placeholder={dateFormat}  onchange={handleNewValidTo}></lightning-input>
+                                </lightning-layout-item>
+                               <lightning-layout-item size="1" padding="horizontal-small">
+                                   <lightning-button  label="UpdatePrice" name="UpdatePrice" disabled={isUpdatePrice}  onclick={handleUpdatePrice}></lightning-button>
+                               </lightning-layout-item>
+                               <lightning-layout-item size="3" class="slds-p-left_large">
+                                   <template if:true={submitToAmsButtonVisibility}>
+                                        <lightning-button  label="Submit To AMs"  name="SubmitToAms" onclick={handleSubmitToAms} disabled={isSubmitToAms} variant="success"></lightning-button>
+                                    </template>
+                                    <template if:true={createOpportunityButtonVisibility}>
+                                        <lightning-button  label="Create Opportunity" class="slds-m-left_x-small" name="CreateOpportunity" onclick={handleCreateOpportunity} disabled={isSubmitToAms} variant="success"></lightning-button>
+                                    </template>
+                               </lightning-layout-item>
+                           </lightning-layout>
+                        </template>
+                <div class="wrapper slds-scrollable">
+                    <table id="priceRecords" class="tableClass">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="priceRecordsth" style="align-content: center;left:0;z-index:3; text-align:center">
+                                    <lightning-input type="checkbox" disabled={hideCheckbox}  variant="label-hidden" name="input1" value={selectAll} checked={selectAll} onchange={handleSelectAllChange}></lightning-input>
+                                </th>
+                                <th width="90px"  class="priceRecordsth" style="left:50px; z-index:4; text-align:center">
+                                    <div class="slds-truncate" data-field="currentPriceRecordLink" data-sortdirection={sortDirection} onclick={handleSortData} title='Current Price Record'><b>Current Price Record</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                               
+                                <th width="250px" class="priceRecordsth" style="left:140px; z-index:4;">
+                                    <div class="slds-truncate" data-field="ProductName" data-sortdirection={sortDirection} onclick={handleSortData} title='Product'><b>Product</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="160px" class="priceRecordsth" style="left:390px;z-index:4;">
+                                    <div class="slds-truncate" data-field="RegionalAccount" data-sortdirection={sortDirection} onclick={handleSortData} title='Regional Account'><b>Regional Account</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="160px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="Incoterm" data-sortdirection={sortDirection} onclick={handleSortData} title='Incoterm'><b>Incoterm</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="100px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="CustomerRegion" data-sortdirection={sortDirection} onclick={handleSortData} title='Pricing Region'><b>Pricing Region</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <!--<th width="80px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="UoM_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='UOM'><b>UOM</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="80px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="Per_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='per UOM'><b>per UOM</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="80px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="CurrencyIsoCode" data-sortdirection={sortDirection} onclick={handleSortData} title='PR Currency'><b>PR Currency</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>-->
+                                
+                                <th width="100px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="Previous_Price_USD_KG_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Previous Price(USD/KG)'><b>Previous Price(USD/KG)</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="90px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="PreviousPriceRecordLink" data-sortdirection={sortDirection} onclick={handleSortData} title='Previous Price Record'><b>Previous Price Record</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <template if:true={submitToAmsButtonVisibility}>
+                                    <th width="100px" class="priceRecordsth">
+                                        <div class="slds-truncate" data-field="floorPrice" data-sortdirection={sortDirection} onclick={handleSortData} title='Floor Price(USD/KG)'><b>Floor Price(USD/KG)</b>&nbsp;
+                                            <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                        </div>
+                                    </th>
+                                </template>
+                                <th width="100px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="targetPrice" data-sortdirection={sortDirection} onclick={handleSortData} title='Target Price(USD/KG)'><b>Target Price(USD/KG)</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                
+                                <th width="100px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="listPrice" data-sortdirection={sortDirection} onclick={handleSortData} title='List Price(USD/KG)'><b>List Price(USD/KG)</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <!--<th width="120px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="Current_Price_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Current Price'><b>Current Price</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>-->
+                                <th width="120px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="Current_Price_USD_KG_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Current Price(USD/KG)'><b>Current Price(USD/KG)</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="130px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="Validity_From_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Valid From'><b>Valid From</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="130px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="Validity_to_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Valid To'><b>Valid To</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="130px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="newPriceUSD" data-sortdirection={sortDirection} onclick={handleSortData} title='Nominated Price(USD/KG)'><b>Nominated Price(USD/KG)</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="130px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="New_Validity_From_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Nominated Price Valid From'><b>Nominated Valid From</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="130px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="New_Validity_To_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Nominated Price Valid To'><b>Nominated Valid To</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <template if:true={showSubmittedCol}>
+                                    <th width="130px" class="priceRecordsth">
+                                        <div class="slds-truncate" data-field="Submitted_to_AM_Date_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Submitted Date'><b>Submitted Date</b>&nbsp;
+                                            <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                        </div>
+                                    </th>
+                                </template>
+                                <template if:true={showApprovedCol}>
+                                    <th width="130px" class="priceRecordsth">
+                                        <div class="slds-truncate" data-field="Approved_Date_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Approved Date'><b>Approved Date</b>&nbsp;
+                                            <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                        </div>
+                                    </th>
+                                </template>
+                                <template if:true={showRejectedCol}>
+                                    <th width="130px" class="priceRecordsth">
+                                        <div class="slds-truncate" data-field="Rejected_By_AM_Date_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Rejected Date'><b>Rejected Date</b>&nbsp;
+                                            <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                        </div>
+                                    </th>
+                                    <th width="300px" class="priceRecordsth">
+                                        <div class="slds-truncate" data-field="Rejected_Comments_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='Rejected Date'><b>Rejected Comments</b>&nbsp;
+                                            <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                        </div>
+                                    </th>
+                                </template> 
+                                <th width="160px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="SoldToAccount" data-sortdirection={sortDirection} onclick={handleSortData} title='Sold-to Account'><b>Sold-to Account</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="160px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="ShipTo" data-sortdirection={sortDirection} onclick={handleSortData} title='Ship To'><b>Ship-To</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="160px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="ShipFrom" data-sortdirection={sortDirection} onclick={handleSortData} title='Ship From'><b>Ship-From</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="160px" class="priceRecordsth">
+                                    <div class="slds-truncate" data-field="AccountManager" data-sortdirection={sortDirection} onclick={handleSortData} title='Account Manager'><b>Account Manager</b>&nbsp;
+                                        <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                    </div>
+                                </th>
+                                <th width="120px" class="priceRecordsth" style="text-align:center;right:0;z-index:3;">
+                                    <div class="slds-truncate" title='Edit'><b>Edit</b></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template if:true={priceRecordsData.length}>
+                            <template for:each={priceRecordsData} for:item="item" for:index="indexVar">
+                                <tr key={item.Id} style="cursor: pointer;" class="tbody_trClass">
+                                    <!--<template if:false={hideCheckbox}>-->
+                                        <td class="priceRecordstd" style="text-align: center; position:sticky;left:0;top:0; z-index:2;background-color:inherit;">
+                                            <lightning-input type="checkbox" disabled={hideCheckbox}  variant="label-hidden" data-id={item.Id} value={item.rowSelect} checked={item.rowSelect} onchange={handleRowSelectChange}></lightning-input>
+                                        </td>
+                                    <!--</template>-->
+                                    <td class="priceRecordstd" style="text-align:left; padding-left:4px; height:40px; position:sticky;left: 50px;top:0; z-index:3;background:inherit;">
+                                        <div class="slds-truncate" title={item.Name}>
+                                            <lightning-formatted-url value={item.currentPriceRecordLink} tooltip={item.Name} label={item.Name} target="_blank" ></lightning-formatted-url>
+                                        </div>
+                                    </td>
+                                    <td class="priceRecordstd" style=" position:sticky;left: 140px;top:0; z-index:3; box-shadow: 5px 0 3px -2px #ccc;background:inherit; ">
+                                        <div class="slds-truncate" title={item.ProductName}>{item.ProductName}</div>
+                                    </td>
+                                    <td class="priceRecordstd" style="position:sticky;left:390px;top:0; z-index:3; box-shadow: 5px 0 3px -2px #ccc;background:inherit; ">
+                                        <div class="slds-truncate" title={item.RegionalAccount}>{item.RegionalAccount}</div>
+                                    </td>
+                                    <td class="priceRecordstd">
+                                        <div class="slds-truncate" title={item.Incoterm}>{item.Incoterm}</div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.CustomerRegion}>{item.CustomerRegion}</div>
+                                    </td>
+                                   <!-- <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.UoM_SIG__c}>{item.UoM_SIG__c}</div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.Per_SIG__c}>{item.Per_SIG__c}</div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.CurrencyIsoCode}>{item.CurrencyIsoCode}</div>
+                                    </td>-->
+                                    
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate"  title={item.Previous_Price_USD_KG_SIG__c}>
+                                            <lightning-formatted-number value={item.Previous_Price_USD_KG_SIG__c} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                        </div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.previousPriceRecordName}>
+                                            <lightning-formatted-url value={item.previousPriceRecordLink} tooltip={item.previousPriceRecordName} label={item.previousPriceRecordName} target="_blank" ></lightning-formatted-url>
+                                        </div>
+                                    </td>
+                                    <template if:true={submitToAmsButtonVisibility}>
+                                        <td class="priceRecordstd" >
+                                            <div class="slds-truncate"  title={item.floorPrice}>
+                                                <lightning-formatted-number value={item.floorPrice} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                            </div>
+                                        </td>
+                                    </template>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate"  title={item.targetPrice}>
+                                            <lightning-formatted-number value={item.targetPrice} format-style="currency" currency-code=USD currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                        </div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate"  title={item.listPrice}>
+                                            <lightning-formatted-number value={item.listPrice} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                        </div>
+                                    </td>
+                                    <!--<td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.Current_Price_SIG__c}>
+                                            <lightning-formatted-number value={item.Current_Price_SIG__c} format-style="currency" currency-code={item.CurrencyIsoCode} currency-display-as="symbol" minimum-fraction-digits={item.decimalPlaces} maximum-fraction-digits={item.decimalPlaces}></lightning-formatted-number>
+                                        </div>
+                                    </td>-->
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.Current_Price_USD_KG_SIG__c}>
+                                            <lightning-formatted-number value={item.Current_Price_USD_KG_SIG__c} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                        </div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate"  title={item.Validity_From_SIG__c}>
+                                            <lightning-formatted-date-time value={item.Validity_From_SIG__c}></lightning-formatted-date-time>
+                                        </div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate"  title={item.Validity_to_SIG__c}>
+                                            <lightning-formatted-date-time value={item.Validity_to_SIG__c}></lightning-formatted-date-time>
+                                        </div>
+                                    </td>
+                                    <td class={item.nominatedPriceClass} >
+                                        <div class="slds-truncate" title={item.newPriceUSD}>
+                                            <template if:true={item.enableEdit}>
+                                                <lightning-formatted-number value={item.newPriceUSD} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                            </template>
+                                            <template if:false={item.enableEdit}>
+                                                <lightning-input type="number" class="slds-m-right_xx-small" required="true" step={item.stepValueUSD} name="NewPrice" variant="label-hidden" data-id={item.Id} value={item.newPriceUSD} onchange={handleRowNewPriceChange} onkeyup={onEnterKey}></lightning-input>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td class={item.nominatedPriceClass} >
+                                        <div class="slds-truncate"  title={item.New_Validity_From_SIG__c}>
+                                            <template if:true={item.enableEdit}>
+                                                <lightning-formatted-date-time value={item.New_Validity_From_SIG__c}></lightning-formatted-date-time>
+                                            </template>
+                                            <template if:false={item.enableEdit}>
+                                                <lightning-input type="date"  class="slds-m-right_xx-small" placeholder={dateFormat} required="true" name="NewValidFrom" variant="label-hidden" data-id={item.Id} value={item.New_Validity_From_SIG__c} onchange={handleRowNewValidFromChange} onkeyup={onEnterKey}></lightning-input>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td class={item.nominatedPriceClass} >
+                                        <div class="slds-truncate"  title={item.New_Validity_To_SIG__c}>
+                                            <template if:true={item.enableEdit}>
+                                                <lightning-formatted-date-time value={item.New_Validity_To_SIG__c}></lightning-formatted-date-time>
+                                            </template>
+                                            <template if:false={item.enableEdit}>
+                                                <lightning-input type="date"  placeholder={dateFormat} class="slds-m-right_xx-small" required="true" name="NewValidTo" variant="label-hidden" data-id={item.Id} value={item.New_Validity_To_SIG__c} onchange={handleRowNewValidToChange} onkeyup={onEnterKey}></lightning-input>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <template if:true={showSubmittedCol} >
+                                        <td class="priceRecordstd">
+                                            <div class="slds-truncate"  title={item.Submitted_to_AM_Date_SIG__c}>
+                                                <lightning-formatted-date-time value={item.Submitted_to_AM_Date_SIG__c}></lightning-formatted-date-time>
+                                            </div>
+                                        </td>
+                                    </template>
+                                    <template if:true={showApprovedCol} >
+                                        <td class="priceRecordstd" >
+                                            <div class="slds-truncate"  title={item.Approved_Date_SIG__c}>
+                                                <lightning-formatted-date-time value={item.Approved_Date_SIG__c}></lightning-formatted-date-time>
+                                            </div>
+                                        </td>
+                                    </template>
+                                    <template if:true={showRejectedCol} >
+                                        <td class="priceRecordstd" >
+                                            <div class="slds-truncate"  title={item.Rejected_By_AM_Date_SIG__c}>
+                                                <lightning-formatted-date-time value={item.Rejected_By_AM_Date_SIG__c}></lightning-formatted-date-time>
+                                            </div>
+                                        </td>
+                                        <td class="priceRecordstd" >
+                                            <div title={item.Rejected_Comments_SIG__c}>{item.Rejected_Comments_SIG__c}</div>
+                                        </td>
+                                    </template>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.Account}>{item.Account}</div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.ShipTo}>{item.ShipTo}</div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.ShipToNumber}>{item.ShipToNumber}</div>
+                                    </td>
+                                    <td class="priceRecordstd" >
+                                        <div class="slds-truncate" title={item.AccountManager}>{item.AccountManager}</div>
+                                    </td>
+                                    <td class="priceRecordstd" style="height:40px;text-align: center; position:sticky;right:0;top:0; z-index:2; background:inherit">
+                                        <div>
+                                            <template if:true={item.enableEdit}>
+                                                <lightning-button variant="base" disabled={hideCheckbox} label="Edit" title="Edit" data-id={item.Id} onclick={handleRowEditClick}></lightning-button>
+                                            </template>
+                                            <template if:false={item.enableEdit}>
+                                                <lightning-button variant="base" disabled={hideCheckbox} label="Update" title="Update" data-id={item.Id} onclick={handleRowUpdateClick}></lightning-button>
+                                                /<lightning-button variant="base" disabled={hideCheckbox} label="Cancel" title="Cancel" data-id={item.Id} onclick={handleRowCancelClick}></lightning-button>
+                                            </template>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </template>
+                        </tbody>
+                    </table>            
+                </div>
+               </template>
+                   <template if:false={priceRecordsRealData.length}>
+                       <div class="slds-text-align--center">
+                       <b>No Price Records are available</b>
+                       </div>
+                   </template>
+                   <template if:true={priceRecordsRealData.length}>
+                        <div class="slds-align_absolute-center">
+                            <c-reusable-lwc-pagination-cmp current-page-number={currentPageNumber} page-size={pageSize} list-length={listLength} no-of-pages={totalPages} onpageselection={handlePageSelection}></c-reusable-lwc-pagination-cmp>
+                        </div>
+                    </template>
+    </lightning-accordion-section>
+    </lightning-accordion>
+    </lightning-card>
+</div>
+    <!--New price updated price records--> 
+    <template if:true={isModalOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container outer_div">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Nominated price records</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div if:true={showPopupSpinner}>
+                    <lightning-spinner alternative-text="Loading" class="spinner" variant="brand" size="medium"></lightning-spinner>
+                </div>
+                <div  class="slds-modal__content slds-p-around_medium slds-scrollable" id="modal-content-id-2" >
+                    <template if:true={newPriceRecords.length}>
+                        <p class="note"><strong>Note:</strong> Displaying nominated price records for which New price is less than or equals to List price of product</p>
+                        <!--<lightning-datatable key-field="Id"
+                                            data={newPriceRecords}
+                                            columns={priceRecordColumns}
+                                            selected-rows={newPriceSelectedRows}
+                                            onrowselection={handleNewPriceRecordSelection}
+                                            onrowaction={handlePriceRecordRowAction}
+                        ></lightning-datatable>-->
+                        <div class="nominatedRecordsWrapper slds-scrollable">
+                            <table id="nominatedPriceRecords" class="tableClass">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="priceRecordsth" style="align-content: center;left:0;z-index:3; text-align:center">
+                                            <lightning-input type="checkbox" variant="label-hidden" value={nominatedRecordsSelectAll} checked={nominatedRecordsSelectAll} onchange={handleNominatedRecordsSelectAllChange}></lightning-input>
+                                        </th>
+                                        <th width="90px"  class="priceRecordsth" style="left:50px; z-index:4; text-align:center">
+                                            <div class="slds-truncate" data-field="currentPriceRecordLink" title='Current Price Record'><b>Current Price Record</b>&nbsp;
+                                            </div>
+                                        </th>
+                                       
+                                        <th width="250px" class="priceRecordsth" style="left:140px; z-index:4;">
+                                            <div class="slds-truncate" data-field="ProductName" title='Product'><b>Product</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="160px" class="priceRecordsth" style="left:390px;z-index:4;">
+                                            <div class="slds-truncate" data-field="RegionalAccount"  title='Regional Account'><b>Regional Account</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="160px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="Incoterm"  title='Incoterm'><b>Incoterm</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="100px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="CustomerRegion" title='Pricing Region'><b>Pricing Region</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <!--<th width="80px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="UoM_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='UOM'><b>UOM</b>&nbsp;
+                                                <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                            </div>
+                                        </th>
+                                        <th width="80px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="Per_SIG__c" data-sortdirection={sortDirection} onclick={handleSortData} title='per UOM'><b>per UOM</b>&nbsp;
+                                                <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                            </div>
+                                        </th>
+                                        <th width="80px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="CurrencyIsoCode" data-sortdirection={sortDirection} onclick={handleSortData} title='PR Currency'><b>PR Currency</b>&nbsp;
+                                                <lightning-icon icon-name="utility:sort" size="xx-small"></lightning-icon>
+                                            </div>
+                                        </th>-->
+                                        
+                                        <th width="100px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="Previous_Price_USD_KG_SIG__c" title='Previous Price(USD/KG)'><b>Previous Price(USD/KG)</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="90px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="PreviousPriceRecordLink" title='Previous Price Record'><b>Previous Price Record</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <template if:true={submitToAmsButtonVisibility}>
+                                            <th width="100px" class="priceRecordsth">
+                                                <div class="slds-truncate" data-field="floorPrice"  title='Floor Price(USD/KG)'><b>Floor Price(USD/KG)</b>&nbsp;
+                                                    
+                                                </div>
+                                            </th>
+                                        </template>
+                                        <th width="100px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="targetPrice"  title='Target Price(USD/KG)'><b>Target Price(USD/KG)</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="100px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="listPrice"  title='List Price(USD/KG)'><b>List Price(USD/KG)</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="120px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="Current_Price_USD_KG_SIG__c"  title='Current Price(USD/KG)'><b>Current Price(USD/KG)</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="130px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="Validity_From_SIG__c"  title='Valid From'><b>Valid From</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="130px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="Validity_to_SIG__c"  title='Valid To'><b>Valid To</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <template if:true={isCreateOpportunity}>
+                                            <th width="130px" class="priceRecordsth">
+                                                <div class="slds-truncate" data-field="Proposed_Quantity_SIG__c" title="Quantity"><b>Quantity</b></div>
+                                            </th>
+                                        </template>
+                                        <th width="130px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="newPriceUSD"  title='Nominated Price(USD/KG)'><b>Nominated Price(USD/KG)</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="130px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="New_Validity_From_SIG__c"  title='Nominated Price Valid From'><b>Nominated Valid From</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="130px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="New_Validity_To_SIG__c"  title='Nominated Price Valid To'><b>Nominated Valid To</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="160px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="SoldToAccount"  title='Sold-to Account'><b>Sold-to Account</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="160px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="ShipTo"  title='Ship To'><b>Ship-To</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="160px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="ShipFrom"  title='Ship From'><b>Ship-From</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                        <th width="160px" class="priceRecordsth">
+                                            <div class="slds-truncate" data-field="AccountManager"  title='Account Manager'><b>Account Manager</b>&nbsp;
+                                                
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={newPriceRecords} for:item="item" for:index="indexVar">
+                                        <tr key={item.Id} style="cursor: pointer;" class="tbody_trClass">
+                                            <td class="priceRecordstd" style="text-align: center; position:sticky;left:0;top:0; z-index:2;background-color:inherit;">
+                                                <lightning-input type="checkbox" disabled={hideCheckbox}  variant="label-hidden" data-id={item.Id} value={item.rowSelect} checked={item.rowSelect} onchange={handleNominatedRecordsRowSelectChange}></lightning-input>
+                                            </td>
+                                            <td class="priceRecordstd" style="text-align:left; padding-left:4px; height:40px; position:sticky;left: 50px;top:0; z-index:3;background:inherit;">
+                                                <div class="slds-truncate" title={item.Name}>
+                                                    <lightning-formatted-url value={item.currentPriceRecordLink} tooltip={item.Name} label={item.Name} target="_blank" ></lightning-formatted-url>
+                                                </div>
+                                            </td>
+                                            <td class="priceRecordstd" style=" position:sticky;left: 140px;top:0; z-index:3; box-shadow: 5px 0 3px -2px #ccc;background:inherit; ">
+                                                <div class="slds-truncate" title={item.ProductName}>{item.ProductName}</div>
+                                            </td>
+                                            <td class="priceRecordstd" style="position:sticky;left:390px;top:0; z-index:3; box-shadow: 5px 0 3px -2px #ccc;background:inherit; ">
+                                                <div class="slds-truncate" title={item.RegionalAccount}>{item.RegionalAccount}</div>
+                                            </td>
+                                            <td class="priceRecordstd">
+                                                <div class="slds-truncate" title={item.Incoterm}>{item.Incoterm}</div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.CustomerRegion}>{item.CustomerRegion}</div>
+                                            </td>
+                                           <!-- <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.UoM_SIG__c}>{item.UoM_SIG__c}</div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.Per_SIG__c}>{item.Per_SIG__c}</div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.CurrencyIsoCode}>{item.CurrencyIsoCode}</div>
+                                            </td>-->
+                                            
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate"  title={item.Previous_Price_USD_KG_SIG__c}>
+                                                    <lightning-formatted-number value={item.Previous_Price_USD_KG_SIG__c} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.previousPriceRecordName}>
+                                                    <lightning-formatted-url value={item.previousPriceRecordLink} tooltip={item.previousPriceRecordName} label={item.previousPriceRecordName} target="_blank" ></lightning-formatted-url>
+                                                </div>
+                                            </td>
+                                            <template if:true={submitToAmsButtonVisibility}>
+                                                <td class="priceRecordstd" >
+                                                    <div class="slds-truncate"  title={item.floorPrice}>
+                                                        <lightning-formatted-number value={item.floorPrice} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                                    </div>
+                                                </td>
+                                            </template>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate"  title={item.targetPrice}>
+                                                    <lightning-formatted-number value={item.targetPrice} format-style="currency" currency-code=USD currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate"  title={item.listPrice}>
+                                                    <lightning-formatted-number value={item.listPrice} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.Current_Price_USD_KG_SIG__c}>
+                                                    <lightning-formatted-number value={item.Current_Price_USD_KG_SIG__c} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate"  title={item.Validity_From_SIG__c}>
+                                                    <lightning-formatted-date-time value={item.Validity_From_SIG__c}></lightning-formatted-date-time>
+                                                </div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate"  title={item.Validity_to_SIG__c}>
+                                                    <lightning-formatted-date-time value={item.Validity_to_SIG__c}></lightning-formatted-date-time>
+                                                </div>
+                                            </td>
+                                            <template if:true={isCreateOpportunity}>
+                                                <td class={item.nominatedPriceClass} >
+                                                    <div class="slds-truncate" title={item.Proposed_Quantity_SIG__c}>
+                                                        <lightning-input type="number" class="slds-m-right_xx-small" required="true" name="NewPrice" variant="label-hidden" data-id={item.Id} value={item.Proposed_Quantity_SIG__c} onchange={handleProposedQuantityChange}></lightning-input>
+                                                    </div>
+                                                </td>
+                                            </template>
+                                            <td class={item.nominatedPriceClass} >
+                                                <div class="slds-truncate" title={item.newPriceUSD}>
+                                                    <lightning-formatted-number value={item.newPriceUSD} format-style="currency" currency-code="USD" currency-display-as="symbol" minimum-fraction-digits={item.decimalPlacesUSD} maximum-fraction-digits={item.decimalPlacesUSD}></lightning-formatted-number>
+                                                </div>
+                                            </td>
+                                            <td class={item.nominatedPriceClass} >
+                                                <div class="slds-truncate"  title={item.New_Validity_From_SIG__c}>
+                                                    <lightning-formatted-date-time value={item.New_Validity_From_SIG__c}></lightning-formatted-date-time>
+                                                </div>
+                                            </td>
+                                            <td class={item.nominatedPriceClass} >
+                                                <div class="slds-truncate"  title={item.New_Validity_To_SIG__c}>
+                                                    <lightning-formatted-date-time value={item.New_Validity_To_SIG__c}></lightning-formatted-date-time>
+                                                </div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.Account}>{item.Account}</div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.ShipTo}>{item.ShipTo}</div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.ShipToNumber}>{item.ShipToNumber}</div>
+                                            </td>
+                                            <td class="priceRecordstd" >
+                                                <div class="slds-truncate" title={item.AccountManager}>{item.AccountManager}</div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>            
+                        </div>
+                    </template>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <!--<button class="slds-button slds-button_neutral" onclick={handleCloseModal} title="Cancel">Cancel</button>-->
+                    <button class="slds-button slds-button_brand" onclick={handleSubmitDetails} disabled={hideSubmit} title="Submit">Submit</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    <!--Custom Scale Template--> 
+    <template if:true={showCustomScales}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container outer_div">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseCustomScales}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Custom Scales</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div if:true={customScalesSpinner}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" class="spinner" size="medium"></lightning-spinner>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <template if:true={customScalesData.length}>
+                    <lightning-datatable key-field="Id"
+                                         data={customScalesData}
+                                         columns={customScalesColumns}
+                                         hide-checkbox-column="true"
+                    ></lightning-datatable>
+                    </template>
+                    <template if:false={customScalesData.length}>
+                    <p class="slds-text-align--center"><b>No Custome Scales available</b></p>
+                    </template>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    <template if:true={showConfirmationPopUp}>
+        <c-lwc-confirmation-dialogue title='Confirmation'
+                                    message='Price records which are updated with new price are not submitted to Account Manager. Getting new set of records with "Apply Filters" or "Reset" will delete those update prices. Do you want to Continue ?'
+                                    confirm-label='Yes'
+                                    cancel-label='No'
+                                    name="confirmModal"
+                                    onclick={handleConfirmation}> 
+        </c-lwc-confirmation-dialogue>
+    </template>
+</template>

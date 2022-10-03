@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="change Owner">
+    
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_2-of-4">
+                <div class="">
+                    <!-- Create an Input Field where user can enter text to find the
+                        Records-->
+                   
+                    <lightning-input variant="label-hidden" label="Search Record" value={searchKey} type="search"
+                        onchange={handleChange} placeholder="type text here">
+                    </lightning-input>
+                  
+                </div>
+            </div>
+        </div>
+     
+    </lightning-card>
+</template>

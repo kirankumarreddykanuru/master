@@ -1,0 +1,26 @@
+Link to Code: - https://gist.github.com/amitastreait/7057c7957871e5db2bb940477f3f31b4
+Link to PPT:- https://www.slideshare.net/amitsingh655/rollup-summary-trigger-for-lookup-relationship-salesforce-salesforce-apextrigger
+
+ContactMe - 
+
+LinkedIn
+https://linkedin.com/in/simplyamit/
+FaceBook
+http://facebook.com/sfdcpanther
+Twitter
+https://twitter.com/cloudyamit
+Instagram
+https://t.me/sfdcpanther
+Blog
+http://sfdcpanther.com
+Email sfdcpanther@gmail.com
+
+
+Previous Video
+Duplicate Contact Trigger - https://www.youtube.com/watch?v=0OCP3UvWx2M
+Collection in Salesforce - https://www.youtube.com/watch?v=2YcX4Myr0bo&list=PLV3ll8m0ZlprzM-qGJ5nQfo35_HWaNsTu
+SOQL in Salesforce - https://www.youtube.com/watch?v=1w_ErSBclR4&list=PLV3ll8m0ZlprzM-qGJ5nQfo35_HWaNsTu&index=3
+OAuth 2.0 :- https://www.youtube.com/watch?v=6znYAIgvzG4&t=12s
+
+#SalesforceForBeginner #Salesforce #ApexTrigger
+#JourneyToSalesforce

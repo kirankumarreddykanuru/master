@@ -1,0 +1,14 @@
+<template>
+    <template if:true={records}>
+        <lightning-datatable
+            key-field="id"
+            data={records}
+            columns={columns}>
+        </lightning-datatable>
+    </template>
+    <template if:true={errors} >
+        <c-error-panel friendly-message="Error While getting Related Items" errors={errors}>
+
+        </c-error-panel>
+    </template>
+</template>

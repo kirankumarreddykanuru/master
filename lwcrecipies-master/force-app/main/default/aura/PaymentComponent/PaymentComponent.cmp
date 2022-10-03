@@ -1,0 +1,73 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable"
+                controller="StripeUtility"
+                access="global" >
+    
+    <aura:attribute name="customer_id"  type="String" />
+    <aura:attribute name="contactId"    type="String" />
+    <aura:attribute name="card_no"   	type="String" />
+    <aura:attribute name="exp_month"    type="String" />
+    <aura:attribute name="exp_year"     type="String" />
+    <aura:attribute name="cvv"   		type="String" />
+    <aura:attribute name="amount"   	type="String" />
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+   <!-- <c:Spinner /> -->
+    
+    <lightning:card title="" iconName="utility:money">
+    	<div class="slds-m-around_small">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning:input name="payment" label="Amount"
+                                     type="number" formatter="currency"
+                                     step="1"
+                                     aura:id="payment" required="true"
+                                     value="{!v.amount}"
+                                     fieldLevelHelp="Enter Whole No. Fractions are not allowed"
+                                     />
+                </div>
+                <!-- <aura:if isTrue="{!v.customer_id == null}" > -->
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                        <lightning:input name="payment" label="Card Number"
+                                         aura:id="payment" required="{!v.customer_id == null}"
+                                         value="{!v.card_no}"
+                                         maxlength ="16"
+                                         minlength ="16"
+                                         fieldLevelHelp="15/16 Digit Card No"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small"> 
+                        <lightning:input name="payment" label="Expiration Month"
+                                         aura:id="payment" required="{!v.customer_id == null}"
+                                         value="{!v.exp_month}"
+                                         maxlength ="2"
+                                         minlength ="2"
+                                         fieldLevelHelp="1-12 in Numbers"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small"> 
+                        <lightning:input name="payment" label="Expiration Year"
+                                         aura:id="payment" required="{!v.customer_id == null}"
+                                         value="{!v.exp_year}"
+                                         maxlength ="4"
+                                         minlength ="4"
+                                         fieldLevelHelp="For Example 2024"/>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning:input name="payment" label="Security Code"
+                                         aura:id="payment" required="{!v.customer_id == null}"
+                                         value="{!v.cvv}"
+                                         maxlength ="3"
+                                         minlength ="3"
+                                         fieldLevelHelp="3 Digits CVV code"/>
+                    </div>
+                <!-- </aura:if> -->
+            </div>
+            <lightning:button label="Charge Payment" value="Charge Payment"
+                              variant="brand"
+                              onclick="{!c.makePayment}" />
+            
+        </div>
+    </lightning:card>
+    
+</aura:component>

@@ -1,0 +1,52 @@
+<template>
+    <div class="slds-m-around_small">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="6">
+                <lightning-card title="Drag - Drop " icon-name="standard:record">
+                    <div draggable="true" class="draggableDiv slds-m-around_small"
+                        data-item="Id" 
+                        ondragstart={dragStart}
+                        ondragenter={handleDragEnter}
+                        ondragend={handleDragEnd} 
+                        ondragleave={handleDragleave} >
+                        Drag me
+                    </div>
+                    
+                    <br />
+                    <div class="slds-m-top_medium slds-m-bottom_x-large">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input 
+                                type="file" 
+                                label="Upload New Role"
+                                variant="label-hidden"
+                                onchange={handleChange}
+                                accept=".csv" >
+                            </lightning-input>
+                            Selected File :- {fileName}
+                        </div>
+                        <div class="slds-p-around_medium">
+                            <lightning-button label="Upload Role" 
+                                variant="brand" 
+                                onclick={handleUpload} >
+                            </lightning-button>
+                        </div>
+                    </div>             
+                    
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="6">
+                <lightning-card title="Drag - Drop " icon-name="standard:record">
+                    <div class="slds-m-around_small" 
+                        id="dummyId" 
+                        ondrop={handleDrop} 
+                        ondragenter={handleDragEnter}
+                        ondragover={allowDrop}
+                        ondragleave={handleDragLeave}
+                        >
+                        Drop Here
+                    </div>
+                </lightning-card>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>

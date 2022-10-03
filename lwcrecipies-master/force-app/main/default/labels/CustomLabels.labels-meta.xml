@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>ItemTable</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ItemTable</shortDescription>
+        <value>Item Table</value>
+    </labels>
+    <labels>
+        <fullName>Items</fullName>
+        <categories>Items</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Items</shortDescription>
+        <value>Items</value>
+    </labels>
+    <labels>
+        <fullName>Shipping_Rate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Shipping Rate</shortDescription>
+        <value>.75</value>
+    </labels>
+    <labels>
+        <fullName>Stripe_Prod</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Stripe_Prod</shortDescription>
+        <value>Stripe_Production</value>
+    </labels>
+    <labels>
+        <fullName>Stripe_Sandbox</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Stripe_Sandbox</shortDescription>
+        <value>Stripe_Sandbox</value>
+    </labels>
+    <labels>
+        <fullName>Tax_Rate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Tax Rate</shortDescription>
+        <value>9.25</value>
+    </labels>
+    <labels>
+        <fullName>salesforceLogoDescription</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>salesforceLogoDescription</shortDescription>
+        <value>Salesforce Official Logo</value>
+    </labels>
+</CustomLabels>

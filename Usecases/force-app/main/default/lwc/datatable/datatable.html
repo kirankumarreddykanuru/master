@@ -1,0 +1,35 @@
+<template>
+    <lightning-Card title="Account List" icon-name="standard:account">
+
+        <h1>table 1</h1>    
+
+    <!-- <template if:true={data1}> -->
+
+        <lightning-button label="Push" onclick={moveDown}>
+
+        </lightning-button>
+
+    <lightning-datatable class="table1" data={data1} columns={columns} key-field="id">
+
+    </lightning-datatable>
+
+    <h1>Table 2</h1>
+
+    <lightning-datatable class="table2" data={data2} columns={columns} key-field="id">
+
+    </lightning-datatable>
+
+    <lightning-button label="Revert" onclick={moveUp}>
+
+    </lightning-button>
+
+<!-- </template> -->
+
+    <!-- <template if:true={error}>
+
+        {error}
+
+    </template> -->
+
+</lightning-Card>   
+</template>

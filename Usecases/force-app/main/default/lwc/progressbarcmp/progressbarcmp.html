@@ -1,0 +1,18 @@
+<template>
+
+<div>
+    <div class="slds-grid slds-grid_align-spread slds-p-bottom_x-small">
+      <span>Percentage Sample</span>
+      <span aria-hidden="true">
+        <strong>{percentile}% Complete</strong>
+      </span>
+    </div>
+    <div class="slds-progress-bar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={percentile} aria-labelledby="progress-bar-label-id-6" role="progressbar">
+      <span class="slds-progress-bar__value" style={widthPercentage}>
+        <span class="slds-assistive-text">Progress: {percentile}%</span>
+      </span>
+    </div>
+    <button class="slds-button" onclick={increase} >+ 1%</button>
+    <button class="slds-button" onclick={decrease} >- 1%</button>
+</div>
+</template>

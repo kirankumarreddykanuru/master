@@ -1,0 +1,24 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,lightning:actionOverride,force:hasRecordId" 
+access="global">
+
+    <!--  Lightning action on the opportunity object. Clicking the Component's action button on the Oppty layout opens a panel to create a new Oppty Line Item.  -->
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleLoad}" /> 
+
+    <lightning:recordEditForm aura:id="recordEditForm"
+                           objectApiName="OpportunityLineItem" 
+                           onsubmit="{!c.handleLoad}" >
+        <lightning:messages />
+
+        <lightning:inputfield aura:id="opportunityProductField" fieldname="OpportunityId" value="{!v.recordId}" 
+                              disabled="false" required="true"/>
+        <lightning:inputfield aura:id="opportunityProductField" fieldname="Product2Id" disabled="false" required="true"  />
+        <lightning:inputfield aura:id="opportunityProductField" fieldname="Quantity" />
+
+        <lightning:inputfield aura:id="opportunityProductField" fieldname="UnitPrice" />
+
+        <lightning:button class="slds-m-top_small" type="submit" label="Submit" />
+
+    </lightning:recordEditForm>
+
+</aura:component>

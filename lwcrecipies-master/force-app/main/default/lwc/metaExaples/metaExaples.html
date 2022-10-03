@@ -1,0 +1,18 @@
+<template>
+    <div class="slds-m-around_small">
+        <strong>
+            Metadata File Example {message} <br/>
+            page no  : {pageno}
+        </strong>
+    </div>
+    <lightning-card title="Contacts" icon-name="standard:contact">
+        <div class="slds-m-around_small">
+            <template if:true={contacts} >
+                <template for:each={contacts} for:item="item">
+                        <c-child-comp contact={item} key={item.Id} ></c-child-comp>
+                </template>
+                
+            </template>
+        </div>
+    </lightning-card>
+</template>

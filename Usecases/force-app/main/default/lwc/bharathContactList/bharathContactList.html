@@ -1,0 +1,128 @@
+<template>
+    <article class="slds-card">
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="contact">
+                            <lightning-icon icon-name="standard:contact" alternative-text="Contact"></lightning-icon>
+                           
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="#" class="slds-card__header-link slds-truncate" title="Contacts Size">
+                                <span>Contacts ( {contactSize} )</span>
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="slds-no-flex">
+                        <div class="slds-dropdown-trigger slds-dropdown-trigger_click ">
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                                aria-haspopup="false" title="Show More">
+                            <lightning-icon icon-name="utility:down" alternative-text="DropDown" size="xx-small"></lightning-icon>
+                                <span class="slds-assistive-text">Show More</span>
+                            </button>
+                            <div class="slds-dropdown slds-dropdown_actions slds-dropdown_right">
+                                <ul class="slds-dropdown__list" role="menu">
+                                    <li class="slds-dropdown__item" role="presentation">
+                                        <a href="#" role="menuitem" tabindex="0">
+                                            <span class="slds-truncate" title="Action One">Action One</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-dropdown__item" role="presentation">
+                                        <a href="#" role="menuitem" tabindex="-1">
+                                            <span class="slds-truncate" title="Action Two">Action Two</span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-dropdown__item" role="presentation">
+                                        <a href="#" role="menuitem" tabindex="-1">
+                                            <span class="slds-truncate" title="Action Three">Action Three</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+    </div>
+   
+        
+        <div class="slds-card__body slds-card__body_inner">
+            <ul class="slds-grid slds-wrap slds-grid_pull-padded">
+            <div>
+                <template for:each={contacts} for:item="contact">
+                <li key={contact.Id} class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-1">
+                    <article class="slds-tile slds-media slds-card__tile slds-hint-parent">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-contact"
+                                title="Description of icon when needed">
+                                <lightning-icon icon-name="standard:contact" alternative-text="Contact"></lightning-icon>
+                                <span class="slds-assistive-text">{contact.Name}</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+                                <h3 class="slds-tile__title slds-truncate" title="Related Record Title 1">
+                               <a onclick={handleClick} data-conid={contact.Id}> {contact.Name} </a>
+    
+                                 
+                                </h3>
+                                <div class="slds-no-flex">
+                                    <div class="slds-dropdown-trigger slds-dropdown-trigger_click ">
+                                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                                            aria-haspopup="false" title="Show More">
+                                            <lightning-icon icon-name="utility:down" alternative-text="DropDown" size="xx-small"></lightning-icon>
+                                            
+                                        </button>
+                                        <div class="slds-dropdown slds-dropdown_actions slds-dropdown_right">
+                                            <ul class="slds-dropdown__list" role="menu">
+                                                <li class="slds-dropdown__item" role="presentation">
+                                                    <a href="#" role="menuitem" tabindex="0">
+                                                        <span class="slds-truncate" title="Action One">Action One</span>
+                                                    </a>
+                                                </li>
+                                                <li class="slds-dropdown__item" role="presentation">
+                                                    <a href="#" role="menuitem" tabindex="-1">
+                                                        <span class="slds-truncate" title="Action Two">Action Two</span>
+                                                    </a>
+                                                </li>
+                                                <li class="slds-dropdown__item" role="presentation">
+                                                    <a href="#" role="menuitem" tabindex="-1">
+                                                        <span class="slds-truncate" title="Action Three">Action Three</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-tile__detail">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Account</dt>
+                                    <dd class="slds-item_detail slds-truncate" title="Description for first label">
+                                    <a onclick={handleClick} data-conid={contact.AccountId}> {contact.Account.Name} </a>  </dd>
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">
+                                       Phone:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title="Description for second label">
+                                        {contact.Phone}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+
+                </template>
+                </div>
+            </ul>
+        </div>
+        <footer class="slds-card__footer">
+            <a class="slds-card__footer-action" href="#">View All
+                <span class="slds-assistive-text">Contacts</span>
+            </a>
+        </footer>
+    </article>
+</template>

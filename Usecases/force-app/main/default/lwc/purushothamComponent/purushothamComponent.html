@@ -1,0 +1,69 @@
+<template>
+    <lightning-card  title="Login Details">
+        <div class="slds-p-around_large">
+            <div class="slds-box">
+            <p class="slds-p-horizontal_small slds-text-heading_large"></p>
+            {currentTime}
+            </p>
+            </div>
+   
+      <template if:true = {IsCheckin}>
+          <lightning-button variant="success" label="CheckIn" onclick={MemberCheckIn} slot ="actions" class="slds-m-left_x-small"></lightning-button>
+      </template>
+      <template if:true = {IsCheckOut}>
+          <lightning-button variant="destructive" label="CheckOut" slot ="actions" onclick={MemberCheckOut} class="slds-m-left_x-small"></lightning-button>
+      </template>
+      <div class ="slds-text-align_right">
+      <b>{timer} Since Last Login </b>
+
+      </div>
+      <lightning-layout>
+          <lightning-layout-item>
+             <div class ="slds-p-left_xx-small">
+              <b>Clock in Time</b>&nbsp;  : {clockIn}<br/>
+              <b>Clock out Time</b> : {clockOut}
+             </div>           
+          </lightning-layout-item>    
+      </lightning-layout>
+
+      <div><div dropdown="" class="dropdown attendance-logs-row">
+          <div dropdowntoggle="" aria-haspopup="true" class="d-flex align-items-center px-16 py-12 on-hover border-bottom">
+              <div class="w-250 mr-20">
+                  <span class="mr-8">Oct 21, Thu</span>
+                <!----><!----><!----><!----><!----><!----><!----><!----><!---->
+            </div>
+              <div class="w-100"><div class="d-flex align-items-center"><div class="w-75 text-center d-flex align-items-center mr-100">
+                  <div class="attendance-ruler w-100 mr-10"><div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div>
+                  <div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div>
+                  <div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div>
+                  <div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div>
+                  <div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div>
+                  <div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div><div class="time-ticks"></div>
+                  <div class="time-ticks"></div><!---->
+                            <div class="arrow-up" style="left: 16.5%;"></div><!---->
+                            <div class="arrow-up" style="left: 43.5%;"></div><!---->
+                            <div class="position-absolute d-flex bg-white h-100" style="width: 33.5758%; left: 17.2658%;"></div>
+                            <!----><div containerclass="max-w-200" class="position-absolute bg-accent-aqua rounded-left rounded-right h-100" style="width: 33.5758%; left: 17.2658%;">
+                                <!----></div><!----><!----></div>
+              <div class="w-38"><div class="icon-click">
+              <span role="tooltip" aria-describedby="help" container="body" class="icon ic-location">Click here to view map</span>
+              <!----></div><!----></div></div><!----><div class="w-50"><span>11h 11m <!----></span></div>
+              <!----><div class="w-38"><span tooltip="Present" class="icon icon-green ic-check-circle"></span>
+            <!----><!----><!----><!----><!----></div>
+            <!----></div></div>
+        </div><div><!----></div><!----></div><!----><!----><!---->
+        </div>
+    
+        <div class="slds-m-bottom--medium">
+        <div class="slds-progress-bar slds-progress-bar_circular" aria-valuemin="0" aria-valuemax="1" aria-valuenow="9" role="progressbar">
+        <lightning-progress-bar class="slds-progress-bar__value" value={prograssbarval}> <span class="slds-assistive-text">Progress: 75%</span></lightning-progress-bar>
+        </div>
+        </div>
+        </div>
+   
+    </lightning-card>
+ 
+</template>
+
+
+

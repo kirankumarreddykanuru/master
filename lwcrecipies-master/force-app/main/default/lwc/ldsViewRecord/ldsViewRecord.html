@@ -1,0 +1,27 @@
+<template>
+    <lightning-card title="LDS View Record" icon-name="custom:custom54">
+        <div class="slds-m-around_small" >
+            <lightning-record-view-form 
+                record-id={recordId}
+                object-api-name={objectApiName}
+            >
+                <lightning-output-field field-name="LastName" ></lightning-output-field>
+                <lightning-output-field field-name="Phone" ></lightning-output-field>
+
+            </lightning-record-view-form>
+        </div>
+        <div class="slds-m-around_small">
+            <lightning-record-form 
+                record-id={recordId}
+                object-api-name={objectApiName}
+                layout-type="Full"
+                mode="edit"
+                columns="2"
+                onsubmit={handleSubmit}
+                onsuccess={handleSuccess} 
+            >
+            </lightning-record-form>
+        </div>
+    </lightning-card>
+    
+</template>

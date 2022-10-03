@@ -1,0 +1,105 @@
+<template>
+    <div class="slds-p-left_xx-small"></div>
+    
+    <lightning-card >
+    <div class="slds-m-horizontal_medium">
+    <h1 style="text-align:center;float:center;" class="slds-text-heading_medium">Comp offs
+    <lightning-helptext content="View Leave History" class="slds-float_right" icon-name="utility:skip_forward" onclick={value}></lightning-helptext>
+    </h1>
+    <template if:true={val}>
+    <section role="dialog" tabindex="-1"
+    aria-labelledby="modal-heading-01"
+    aria-modal="true" aria-describedby="modal-content-id-1"
+    class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+    <div>
+    <header class="slds-modal__header" style="background: rgb(71, 71, 71)" >
+    <button
+    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse " title="Close" onclick={cal}
+    >
+    <lightning-icon icon-name="utility:close"
+    alternative-text="close"
+    variant="inverse"
+    size="small" ></lightning-icon>
+    <svg
+    class="slds-button__icon slds-button__icon_large"
+    aria-hidden="true"
+    >
+    <use
+    xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"
+    ></use>
+    </svg>
+    <span class="slds-assistive-text">Close</span>
+    </button>
+    <h2 class="slds-text-heading_medium slds-hyphenate slds-text-align_left " style="color: white;">Comp-offs History</h2>
+    </header>
+    <div
+    class="slds-modal__content slds-p-around_medium">
+    <div>
+    <table>
+    <tr>
+    <td class="slds-box slds-box_xx-small">DATE</td>
+    <td class="slds-box slds-box_xx-small" >CHANGE (DAYS)</td>
+    <td class="slds-box slds-box_xx-small">BALANCE (DAYS)</td>
+    </tr>
+    <tr>
+    <td class="slds-box">01-Jan-2021</td>
+    <td class="slds-box">0</td>
+    <td class="slds-box">0</td>
+    </tr>
+    </table> <br/>
+    *- Consumed Leave Balance imported from Excel <br/>
+    <br/>
+    #- Carryover Leave Balance imported from Excel <br/>
+    <br/>
+    ##- Carryover Leave Balance from year end processing <br/>
+    <br/>
+    ^- Leave expired because of expiration policy <br/>
+    <br/>
+    @- Earned Leave Carryover imported from Excel <br/>
+    <br/>
+    $- Earned Leave Accrual Imported using Excel<br/>
+    <br/>
+    <br/>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <br/>
+    <br/>
+    <br/>
+    <div>
+     
+    </div>
+    </br>
+    </br>
+    </br>
+    <div class="slds-grid slds-gutters">
+    <div class="slds-col slds-box slds-box_x-small">
+    
+    <span>AVAILABLE
+    <br/>
+    <p>0</p>
+    </span>
+    </div>
+    <div class="slds-col slds-box slds-box_x-small">
+    <span>CONSUMED
+    <br/>
+    <p>{cc.No_of_leaves__c}</p>
+    </span>
+    </div>
+    </div>
+    <div class="slds-grid slds-gutters" >
+    <div class="slds-col slds-box slds-box_x-small">
+    <span>ANNUAL QUOTA
+    <br/>
+    <p>{cc.No_of_leaves__c}</p>
+    </span>
+    </div>
+    </div>
+    </div>
+    </lightning-card>
+    </template>

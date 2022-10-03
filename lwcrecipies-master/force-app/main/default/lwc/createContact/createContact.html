@@ -1,0 +1,22 @@
+<template>
+    <template if:true={errors}>
+        <c-error-panel errors={errors} friendly-message="Error While Creating Records" ></c-error-panel>
+    </template>
+    <div class="slds-m-around_small">
+        <lightning-input type="text" value={contactInfo.FirstName} label="First Name" required
+            
+            name="FirstName" onchange={handleOnChange} ></lightning-input>
+        <lightning-input type="text" value={contactInfo.LastName} label="Last Name" required
+            name="LastName" onchange={handleOnChange} ></lightning-input>
+        <lightning-input type="text" value={contactInfo.Email} label="Email" required
+            name="Email" onchange={handleOnChange} ></lightning-input>
+        <lightning-input type="text" value={contactInfo.Title} label="Title" required
+            name="Title" onchange={handleOnChange} ></lightning-input>
+        <lightning-input type="text" value={contactInfo.Phone} label="Phone" required
+            name="Phone" onchange={handleOnChange} ></lightning-input>
+        <br/>
+        <lightning-button label="Create Contact" variant="brand" 
+            value="Create Contact" onclick={handleCreate} ></lightning-button>
+    </div>
+    
+</template>

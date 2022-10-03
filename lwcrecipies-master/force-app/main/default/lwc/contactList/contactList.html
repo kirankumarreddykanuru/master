@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Contact List" icon-name="action:announcement">
+        <div class="slds-m-around_small">
+            <template if:true={contacts}>
+                <template for:each={contacts} for:item="con">
+                    <c-contact-tile contact={con} key={con.Id}></c-contact-tile>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+    <lightning-card title="Shared JavaScript" icon-name="custom:custom43">
+        <div class="slds-m-around_small">
+            {addition}
+        </div>
+        <lightning-button label="Switch Template"
+            variant="brand" onclick={changeTemplate} ></lightning-button>
+    </lightning-card>
+</template>

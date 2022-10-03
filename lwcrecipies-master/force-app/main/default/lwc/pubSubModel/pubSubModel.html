@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Pub Sub Model" icon-name="standard:contact">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item padding="around-small" size="4">
+                <c-create-contact oncreate={handleCreate} record-id={recordId} ></c-create-contact>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="8">
+                <c-contact-list-pub-sub record-id={recordId} ></c-contact-list-pub-sub>
+            </lightning-layout-item>
+        </lightning-layout>
+        <!-- <div style="background-color: black; color: white;">
+            Message From Event = {log}
+        </div>
+        <div>
+            <c-sibling ondivclicked={handleClick} ></c-sibling>
+        </div>
+        <div>
+            <c-sibling1 ></c-sibling1>
+        </div> -->
+    </lightning-card>
+</template>

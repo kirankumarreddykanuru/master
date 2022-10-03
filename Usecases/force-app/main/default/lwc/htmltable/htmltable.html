@@ -1,0 +1,119 @@
+<template>
+    <lightning-card title="">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <span></span>
+            </div>
+            <div class="slds-col">
+                <span>
+                    <lightning-button label="PUSH" onclick={PushDown}  variant="brand"></lightning-button>
+                </span>
+            </div>
+        </div><br/>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate">
+                            <lightning-input onchange={allSelected} type="checkbox"></lightning-input>
+                        </div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Phone">Phone</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Email">Email</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={contactsData} for:item="con">
+                    <tr key={con.Id}>
+                        <td scope="col">
+                            <div>
+                                <lightning-input type="checkbox" value={con.Name} data-id={con.Id}></lightning-input>
+                              <!--  <lightning-input type="checkbox"  checked={con.rowSelect}   onchange={handleCheckChange}></lightning-input> -->
+                            </div>
+                        </td>
+                        <td scope="col">
+                            <div>{con.Name}</div>
+                        </td>
+                        <td scope="col">
+                            <div>
+                                <lightning-formatted-phone value={con.Phone}></lightning-formatted-phone>
+                            </div>
+                        </td>
+                        <td scope="col">
+                            <div>
+                                <lightning-formatted-email value={con.Email}></lightning-formatted-email>
+                            </div>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+                     
+            &nbsp;
+
+            <!--Table 2-->
+         <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate">
+                            <lightning-input onchange={allSelected} type="checkbox"></lightning-input>
+                        </div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Phone">Phone</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Email">Email</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={selectedCons} for:item="cons">
+                    <tr key={cons.Id}>
+                        <td scope="col">
+                            <div>
+                                <lightning-input type="checkbox" value={cons.Name} data-id={cons.Id}></lightning-input>
+                            </div>
+                        </td>
+                        <td scope="col">
+                            <div>{cons.Name}</div>
+                        </td>
+                        <td scope="col">
+                            <div>
+                                <lightning-formatted-phone value={cons.Phone}></lightning-formatted-phone>
+                            </div>
+                        </td>
+                        <td scope="col">
+                            <div>
+                                <lightning-formatted-email value={cons.Email}></lightning-formatted-email>
+                            </div>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <br/> 
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <span></span>
+            </div>
+            <div class="slds-col">
+                <span>
+                    <lightning-button label="REVERT" onclick={showContacts1}  variant="brand"></lightning-button>
+                </span>
+            </div>
+        </div>
+        </lightning-card>
+       
+</template>

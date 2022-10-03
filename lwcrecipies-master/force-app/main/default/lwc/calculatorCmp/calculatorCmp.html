@@ -1,0 +1,40 @@
+<template>
+    <div class="slds-m-around_small">
+        <lightning-card title="Simple Calculator" icon-name="custom:custom34">
+                <div class="slds-m-around_small">
+                    <lightning-input value={number1} label="Number 1" 
+                        type="number"
+                        name="number1" placeholder="input your number here"
+                        step="1"
+                        onchange={handleChangeEvent}>
+                    </lightning-input>
+                    <lightning-input value={number2} label="Number 2" 
+                        type="number"
+                        step="1"
+                        placeholder="input your second number here" 
+                        name="number2"
+                        onchange={handleChangeEvent}>
+                    </lightning-input> <br />
+                    <lightning-button variant="brand" label="Sum" onclick={doSum}>
+                    </lightning-button>
+                    &nbsp;
+                    <lightning-button variant="brand" label="Subsc" onclick={doSubsc}>
+                    </lightning-button>
+                    &nbsp;
+                    <lightning-button variant="brand" label="Div" onclick={doDiv}>
+                    </lightning-button>
+                    &nbsp;
+                    <lightning-button variant="brand" label="Multiplication" onclick={doMulti}>
+                    </lightning-button>
+                </div>
+                <div class="slds-m-around_small">
+                    <template if:true={result}>
+                        Result is : 
+                        <lightning-formatted-number value={result} >
+
+                        </lightning-formatted-number>
+                    </template>
+                </div>
+        </lightning-card>
+    </div>
+</template>

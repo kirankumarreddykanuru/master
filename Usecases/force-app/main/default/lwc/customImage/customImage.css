@@ -1,0 +1,30 @@
+.prev, .next{
+    position: absolute;
+    top :50%;
+    width :auto;
+    padding :16px;
+    color :#fff;
+    font-weight :700;
+    cursor :pointer;
+    border-radius:0 3px 3px 0;
+}
+
+.next{
+    right:0;
+    border-radius : 3px 0 0 3px;
+}
+.container{
+  
+    height : 100%;
+}
+ .next:hover{
+    background : rgb(7, 6, 6);
+}
+.prev:hover {
+    background : rgb(7, 6, 6);
+}
+img{
+    object-fit :contain;
+    width :100%;
+    height :100%;
+}

@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Create Contact Record using LDS">
+        <lightning-layout>
+            <lightning-layout-item size="6">
+                <!-- Displaying fields to get information. -->
+                <lightning-input class="slds-p-around_medium" label="LastName" name="LastName" 
+                    onchange={nameChangedHandler}></lightning-input>
+                <lightning-input class="slds-p-around_medium" label="Phone" type="phone" name="phone" 
+                    onchange={phoneChangedHandler}></lightning-input>
+                <br/>
+                <lightning-button class="slds-m-left_x-small" label="Create Account" variant="brand" 
+                    onclick={createConatct}></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

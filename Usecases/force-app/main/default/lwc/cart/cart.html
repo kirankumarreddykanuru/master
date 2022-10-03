@@ -1,0 +1,10 @@
+<template>
+    <lightning-button variant='brand' label='show cart' onclick={sCart}> </lightning-button>
+    <lightning-card>
+        <template if:true = {cartItems.data}>
+            <template for:each = {cartItems.data} for:item = "item">
+                {item.Name}
+            </template>
+        </template>
+    </lightning-card>
+</template>

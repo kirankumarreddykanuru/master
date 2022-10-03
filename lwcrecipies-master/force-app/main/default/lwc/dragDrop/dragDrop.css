@@ -1,0 +1,18 @@
+.draggableDiv {
+    width: 300px;
+    height: 35px;
+    border-radius: 8px;
+    background-color: lightsteelblue;
+    text-align: center;
+    color: black;
+    padding-top: 8px;
+    cursor: move; 
+}
+
+.lgc-bg {
+    background-color: rgb(242, 242, 242);
+}
+
+.lgc-bg-inverse {
+    background-color: rgb(22, 50, 92);
+}

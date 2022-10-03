@@ -1,0 +1,59 @@
+
+    <template>
+        <lightning-tabset active-tab-value={activeTab}>
+            <lightning-tab label="Profile" value="1" onactive={handleActive}>
+                <lightning-card  title="Experience">
+                    <button class="slds-button " title="Edit" slot="actions"  onclick={goNext}>Edit</button>
+                    <p class="slds-p-horizontal_small"></p>
+                    <p slot="footer">No Data Available</p>
+                </lightning-card>
+            </lightning-tab>
+<lightning-tab label="Documnets" value="2" onactive={handleActive} id="documnet" title="2nd tab extended title">
+
+
+                         
+    <lightning-card>
+        <lightning-layout>
+            <lightning-layout-item>
+                <lightning-vertical-navigation selected-item={selectedItem} onselect={handleSelect} class="navigation">
+                    <lightning-vertical-navigation-section>
+                        <lightning-vertical-navigation-item-icon
+                        icon-name="utility:open_folder" label="Latest Appraisal Letter" name="reports_recent"></lightning-vertical-navigation-item-icon>
+                        <lightning-vertical-navigation-item-icon 
+                        icon-name="utility:open_folder" label="All Employment Documents" name="reports_private"></lightning-vertical-navigation-item-icon>
+                    </lightning-vertical-navigation-section>                    
+                </lightning-vertical-navigation>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-medium">               
+                <template if:true={reportrecent}>
+                <div class="slds-m-vertical_medium">
+                    These are the Recently Viewed!
+                </div>
+            </template>
+             <template if:true={privatereport}>
+                <div class="slds-m-vertical_medium">
+                    These are the Private Reports!
+                </div>
+            </template>
+        
+        
+            <template if:true={pubreport}>
+                <div class="slds-m-vertical_medium">
+                    <lightning-button name="add_student" label="Add Student" title="Add Student" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                </div>
+            </template>
+        
+        
+            </lightning-layout-item>
+        
+        </lightning-layout>
+        
+        </lightning-card>
+        
+            </lightning-tab>
+            <lightning-tab value="3" onactive={handleActive} label="Job">
+                Three Content !
+            </lightning-tab>
+        </lightning-tabset>
+    </template>
+

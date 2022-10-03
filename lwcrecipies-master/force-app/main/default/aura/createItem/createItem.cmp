@@ -1,0 +1,3 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickAction">
+    <c:newItemComponent recordId="{!v.recordId}" onclosepopup="{!c.handlePopup}" />
+</aura:component>	

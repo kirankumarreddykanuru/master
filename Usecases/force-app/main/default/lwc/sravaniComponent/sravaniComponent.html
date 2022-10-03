@@ -1,0 +1,13 @@
+<template>
+    <div><h1><b>{initialName}</b></h1></div>
+    <lightning-card  >
+    <lightning-tabset active-tab-value={activetabContent}>
+    <lightning-tab label="3 star Program" onactive={handle3Click} value="1"></lightning-tab>
+        <lightning-tab label="7 star Program" onactive={handleClick} value="2"> <lightning-tabset>
+            <lightning-tab label="Summary"> Content for tab 1 </lightning-tab>
+            <lightning-tab label="Previous Month Performance"> Content for tab 2 </lightning-tab>
+            <lightning-tab label="Current  Month Performance "> Content for tab 3 </lightning-tab>
+        </lightning-tabset></lightning-tab>    
+    </lightning-tabset>
+    </lightning-card>
+</template>

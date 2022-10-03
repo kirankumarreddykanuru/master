@@ -1,0 +1,23 @@
+<template>
+    <div class="slds-m-around_small" onsimple={handleSimpleEvent}>
+        <strong>I am inside Parent Comp</strong>
+        <c-child-comp  
+            message="Message From Parent"
+            pageno="37" 
+        ></c-child-comp>
+    </div>
+    <div class="slds-m-around_small" >
+        <lightning-button label="Change Date" 
+            onclick={handleClick} 
+            variant="brand"
+        ></lightning-button>
+    </div>
+</template>
+
+<!-- 
+
+    for:each => 1000
+        child
+    bubbles : true
+
+-->

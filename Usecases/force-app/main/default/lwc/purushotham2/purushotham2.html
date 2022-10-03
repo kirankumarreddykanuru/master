@@ -1,0 +1,86 @@
+<template>
+    <lightning-card title={btnname}>
+
+        <div class="slds-float_right slds-p-around_medium">
+
+
+            <lightning-button-group>
+
+                <lightning-button label="30 DAYS" variant={btn30} onclick={last30days}></lightning-button>
+                <span for:each={monthArray} for:item="dt" key={dt}>
+                    <lightning-button class="button" aria-live="assertive" aria-pressed="true" label={dt}
+                        variant={October} onclick={OCT}></lightning-button>
+                </span>
+
+                <!-- <lightning-button label="SEP" variant={btnSep} onclick={SEP}></lightning-button> -->
+
+                <!--<lightning-button label="AUG" variant={btnSep} onclick={SEP}></lightning-button>
+                    <lightning-button label="JUL" variant={btnSep} onclick={SEP}></lightning-button>
+                    <lightning-button label="JUN" variant={btnSep} onclick={SEP}></lightning-button>
+                    <lightning-button label="MAY" variant={btnSep} onclick={SEP}></lightning-button>-->
+
+            </lightning-button-group>
+        </div>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="DATE">DATE</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="ATTENDANCE VISUAL">ATTENDANCE VISUAL</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="GROSS HOURS">GROSS HOURS</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="LOG">LOG</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center; vertical-align: middle;">
+                <template for:each={data} for:item="con">
+                    <tr key={con.Id}>
+
+                        <th scope="col">
+                            <div>{con.Date__c}</div>
+                        </th>
+
+                        <th scope="col">
+                            <div>
+                                <template if:true={con.Log__c}>
+                                    <lightning-progress-bar value={con.Progress_Value__c}></lightning-progress-bar>
+                                </template>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div>{con.Gross_Hours__c}</div>
+                        </th>
+
+                        <th scope="col">
+                            <div>
+                                <template if:false={con.Log__c}>
+                                    <lightning-icon icon-name="utility:warning" alternative-text="Warning!"
+                                        variant="warning" title="Present | Missing Swipe(s)" size="x-small">
+                                    </lightning-icon>
+                                </template>
+
+                                <template if:true={con.Log__c}>
+                                    <lightning-icon icon-name="utility:success" alternative-text="Success!"
+                                        variant="success" title="Present" size="x-small"></lightning-icon>
+                                </template>
+
+                            </div>
+                        </th>
+
+                        <th scope="col">
+                            <div>
+                                <lightning-formatted-phone value={con.Phone}></lightning-formatted-phone>
+                            </div>
+                        </th>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </lightning-card>
+</template>

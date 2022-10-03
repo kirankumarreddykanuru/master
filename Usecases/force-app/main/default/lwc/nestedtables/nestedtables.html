@@ -1,0 +1,56 @@
+<template>
+  <!--2nd tale child -->
+  <div>
+<template for:each={subscriptionsTable} for:item="sub">
+    <tr key={sub.id} data-key={sub.id} data-name="subs">
+        <td class="radio-cell">
+            <input type="radio" data-key={sub.id} name="subscription" value={sub.id} onchange={handleSubChange} />
+        </td>
+        <td colspan="2">{sub.name}</td>
+        <td>
+            <lightning-formatted-date-time value={sub.customerAcceptanceDate} year="numeric" month="numeric"
+                day="numeric" time-zone="UTC"></lightning-formatted-date-time>
+        </td>
+        <td colspan="4">{sub.mrr}</td>
+    </tr>
+   <!-- <tr data-name="child-table" data-key={sub.id} key={sub.id}>
+        <td colspan="5">
+            <c-subscription-products data-active-key={sub.id} key={sub.id} onselected={handleProdChange}>
+            </c-subscription-products>
+        </td>
+        /tr> -->
+</template>
+</div>
+  <!--end-->
+        <table>
+            <thead>
+                <th></th>
+                <th>Product Name</th>
+                <th>Start Date</th>
+                <th>Term Length</th>
+                <th>Seats</th>
+                <th>Expiring</th>
+            </thead>
+            <tbody>
+                <template for:each={selectedSubProds} for:item="product">
+                    <tr key={product.srpId}>
+                        <td class="checkbox-cell">
+                            <input type="checkbox" data-key={product.srpId} name="selectedproduct" value={product.srpId}
+                                checked={checked} onchange={handleProdChange} />
+                        </td>
+                        <td>{product.name}</td>
+                        <td>
+                            <lightning-formatted-date-time value={product.startDate} year="numeric" month="numeric"
+                                day="numeric"></lightning-formatted-date-time>
+                        </td>
+                        <td>{product.termLength}</td>
+                        <td>{product.seats}</td>
+                        <td>
+                            <lightning-formatted-date-time value={product.expirationDate} year="numeric" month="numeric"
+                                day="numeric"></lightning-formatted-date-time>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+</template>

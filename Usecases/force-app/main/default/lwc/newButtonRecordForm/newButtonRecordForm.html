@@ -1,0 +1,33 @@
+<template>
+
+    <lightning-card title ="New Account" icon-name="custom:custom20">
+
+        <lightning-record-edit-form record-id={recordId}
+
+                                    object-api-name="Account"
+
+                                    onsuccess={handleSuccess}>
+<div class="slds-gutters slds-grid slds-wrap">
+    <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="Name"></lightning-input-field>
+                                    <lightning-input-field field-name="Phone__c"></lightning-input-field>
+                                    <lightning-input-field field-name="Industry"></lightning-input-field>
+                                    <lightning-input-field field-name="Rating"></lightning-input-field>
+                                    <lightning-input-field field-name="Ownership"></lightning-input-field>
+                                    <lightning-input-field field-name="Type"></lightning-input-field>
+                                    <lightning-input-field field-name="Country__c"></lightning-input-field>
+                                    <lightning-input-field field-name="AnnualRevenue"></lightning-input-field>
+                                    <lightning-input-field field-name="NumberOfEmployees"></lightning-input-field>
+                                    <lightning-input-field field-name="Description"></lightning-input-field>
+                                    <lightning-input-field field-name="Description"></lightning-input-field>
+                                    <lightning-input-field field-name="CleanStatus"></lightning-input-field>
+            <lightning-button variant="neutral" label="Cancel"></lightning-button>
+
+            <lightning-button variant="brand" class="slds-m-left_x-small" label="Save" type="submit"></lightning-button>
+</div>
+</div>
+        </lightning-record-edit-form>
+
+    </lightning-card>
+
+</template>

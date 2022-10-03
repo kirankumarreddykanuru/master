@@ -1,0 +1,154 @@
+<template>
+  
+<lightning-card>
+    <div class="slds-p-around_large">
+<button class="slds-button" onclick={handleClick}>Request Credit for Compensatory Off
+</button>
+</div>
+</lightning-card>
+<template if:true={modalPopUpToggleFlag}>
+<section
+id="modal1"
+role="dialog"
+tabindex="-1"
+aria-labelledby="modal-heading-01"
+aria-modal="true"
+aria-describedby="modal-content-id-1"
+class="slds-modal slds-fade-in-open">
+<div class="slds-modal__container">
+<header class="slds-modal__header" style="background: #343535;">
+<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+title="Close"
+>
+<lightning-button-icon
+icon-name="utility:close"
+variant="bare"
+onclick={handleCancel}
+alternative-text="Close window">
+</lightning-button-icon>
+<svg
+class="slds-button__icon slds-button__icon_large"
+aria-hidden="true"
+>
+<use
+xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"
+></use>
+</svg>
+<span class="slds-assistive-text">Close</span>
+</button>
+<h2 id="modal-heading-02" class="slds-modal__title slds-hyphenate slds-float_left slds-p-left_none" style="color: white;" >
+Request Credit for Compensatory Off
+</h2>
+</header>
+<div
+class="slds-modal__content slds-p-around_medium"
+id="modal-content-id-2">
+<p>Choose the date on which you have worked for to avail Compensatory Off. You can choose to apply for half day Compensatory off too.</p>
+<br>
+<br>
+<div class="slds-p-bottom_xx-small slds-p-left_xx-small">
+ 
+<input onclick={c} class="date-picker slds-input" value= {showDate} onchange={enddatechange} lwc:dom="manual" >
+<template if:true={val}>
+<div class="slds-grid slds-wrap">
+<div class="slds-col slds-m-left_large slds-size_1-of-2">
+<lightning-layout multiple-rows>
+<lightning-layout-item size="6" padding="around-small"><lightning-input class="slds-p-around_medium" type ="Date" label="StartDate" name="Start_Date__c"
+onchange={startdatechange}></lightning-input>
+</lightning-layout-item>
+<lightning-layout-item size="6" padding="around-small">
+<lightning-input class="slds-p-around_medium" label="End Date" type="Date" name="End_Date__c"
+onchange={enddatechange}></lightning-input>
+</lightning-layout-item>
+</lightning-layout>
+<br/>
+</div>
+</div>
+</template>
+<lightning-input type="checkbox" label="Request Half Day" onchange={checkboxval}></lightning-input>
+
+<template if:true={checkvalue}>
+<br>
+
+<div class="slds-float_left">
+    <div class="slds-button-group" role="group">
+        <div>
+          <button class="slds-button slds-button_neutral slds-brand slds-button_first yesBtn " onclick={yesSelection} >First Half</button>
+        </div>
+        <div>
+          <button class="slds-button slds-button_neutral slds-button_last noBtn" onclick={noSelection}>Second Half</button>
+        </div>
+      </div>
+
+</div>
+</template>
+
+<template if:true={twobt}>
+  <div class="slds-grid slds-wrap"> 
+    
+  <div class="slds-col slds-p-around_large slds-size_1-of-2">
+  <div class="slds-button-group " role="group">
+  <div>
+  <h1> From Session </h1>
+  <div class="slds-float_left">
+  <button class="slds-button slds-button_neutral slds-button_first yesBtn"
+  onclick={yesSelection}> First Half </button>
+  </div>
+  <div class="slds-float_left">
+  <button class="slds-button slds-button_neutral slds-button_last noBtn"
+  onclick={noSelection}> Second Half </button>
+  </div>
+  </div>
+</div> 
+</div>
+<div class="slds-col slds-p-around_large slds-size_1-of-2">
+  <div class="slds-button-group " role="group">
+  <div>
+  <h1> To Session </h1>
+  <div class="slds-float_left">
+  <button class="slds-button slds-button_neutral slds-button_first syesBtn"
+  onclick={syesSelection}> First Half </button>
+  </div>
+  <div class="slds-float_left">
+  <button class="slds-button slds-button_neutral slds-button_last snoBtn"
+  onclick={snoSelection}> Second Half </button>
+  </div>
+  </div>
+</div> 
+</div>
+</div>
+  </template>
+<br/><br/>
+<div>
+<lightning-input class="slds-p-around_medium" type ="Text Area" label="Note" name="Note__c"
+onchange={notechange}></lightning-input>
+</div>
+<div class="slds-float_left">
+<lightning-file-upload
+accept= "{acceptedFormats}" record-id= "{myRecordId}"
+onuploadfinished= "{handleUploadFinished}"
+multiple>
+</lightning-file-upload>
+</div>
+<div class="slds-float_left" style="padding-top:25px; padding-left :10px;">
+<lightning-helptext content="You are allowed submit only 5 files.
+Allowed formats are .png, .jpng, .doc, .docx,
+.pdf, .txt, The file Size should not exceed 2MB.">
+</lightning-helptext>
+</div>
+<br/>
+<br/>
+<br>
+<div>
+<div class="slds-float_right">
+<lightning-button class="slds-m-left_x-small " label="Confirm" variant="brand"
+onclick={Confirm}></lightning-button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</template>
+</template>
+

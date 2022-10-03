@@ -1,0 +1,126 @@
+<template>
+    <template if:true={isLoading} >
+        <c-spinner ></c-spinner>
+    </template>
+    
+    <template if:true={COMPLETE_TEMPLATE}>
+        <div>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                            Get Your Code Here
+                        </h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-p-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label slds-text-heading_medium" for="form-element-01">
+                                        Lightning Web Component Code
+                                    </label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-textarea class="textarea"
+                                            style="height:300px !important;"
+                                            value={COMPLETE_TEMPLATE} >
+                                        </lightning-textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-p-top_large">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label slds-text-heading_medium" for="form-element-01">
+                                        JavaScript Class Code
+                                    </label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-textarea 
+                                            class="textarea"
+                                            style="height:300px !important;"
+                                            value={JAVASCRIPT_CLASS} >
+                                        </lightning-textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Ok" variant="brand" onclick={handleOk}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+    <lightning-card title="Your Form Generator" icon-name="custom:custom4" class="slds-m-around_small">
+        <div class="slds-m-around_small">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-combobox name="status" label="Select Object" 
+                        placeholder="Choose Object" value={value}
+                        onchange={handleChange} options={objects}>
+                    </lightning-combobox>
+                </div>
+                <!--<lightning-spinner></lightning-spinner>-->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="search" label="Search Object"
+                        placeholder="Type the initial name of the objects"
+                        value={searchInput}
+                        onchange={handleSearch}
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <template if:true={fields}>
+                        <lightning-button class="slds-p-around_small" 
+                            label="Generate LWC Code" variant="brand"
+                            onclick={handleGenerate} >
+                        </lightning-button>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <template if:true={errors}>
+            <c-error-panel friendly-message="Error Occured" errors={errors}>
+            </c-error-panel>
+        </template>
+        <template if:true={fields}>
+            <div class="slds-m-around_small">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Field Label">Field Label</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Field API">Field API Name</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Field Type">Field Type</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Parent Object">Parent object</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={fields} for:item="field">
+                            <tr class="slds-hint-parent" key={field.fieldAPIName}>
+                                <td data-label="Field Label">
+                                    {field.fieldLabel}
+                                </td>
+                                <td data-label="Field API Name">
+                                    {field.fieldAPIName}
+                                </td>
+                                <td data-label="Field Type">
+                                    {field.fieldType}
+                                </td>
+                                <td data-label="Parent object">
+                                    {field.parentObjectName}
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+    </lightning-card>
+</template>

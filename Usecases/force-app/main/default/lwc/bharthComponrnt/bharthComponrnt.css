@@ -1,0 +1,90 @@
+
+  .container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  .prev{
+    position: absolute;
+    top :50%;
+    left : 0;
+    width :auto;
+    padding :16px;
+    color :#fff;
+    font-weight :700;
+    cursor :pointer;
+    border-radius:0 3px 3px 0;
+  }
+  
+  .next{
+    position: absolute;
+    top :50%;
+    
+    width :auto;
+    padding :16px;
+    color :#fff;
+    font-weight :700;
+    cursor :pointer;
+    
+    right:0;
+    border-radius : 3px 0 0 3px;
+  }
+  .container{
+  
+    height : 100%;
+  }
+  .next:hover{
+    background : rgb(7, 6, 6);
+  }
+  .prev:hover {
+    background : rgb(7, 6, 6);
+  }
+ 
+.container .content {
+    position: absolute; /* Position the background text */
+    bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    color: #f1f1f1; /* Grey text */
+    width: 100%; /* Full width */
+    padding: 20px; /* Some padding */
+  }
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .top-right{
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    color : white;
+  }
+
+  .top-left{
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    color : white;
+  }
+
+
+  .greenClass{
+
+    background-color: green;
+
+
+  }
+  .redClass{
+
+    background-color:red;
+    
+  }
+
+  .blueClass{
+
+    background-color:blue;
+    
+
+  }

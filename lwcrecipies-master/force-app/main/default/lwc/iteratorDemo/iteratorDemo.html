@@ -1,0 +1,37 @@
+<template>
+    <div class="slds-m-around_small">
+        
+        <lightning-card title="For Each Demo" icon-name="standard:contact" >
+            <template for:each={contacts} for:item="item" for:index="index" >
+                <p key={item.Id} class="slds-m-around_small">
+                   {index} - {item.Name} &nbsp; {item.Email}
+                </p>
+            </template>
+        </lightning-card>
+        <lightning-card title="Iterator Demo" 
+                        icon-name="standard:contact" >
+                <template iterator:it={contacts}>
+                    <li key={it.value.Id} 
+                        class="slds-m-around_small" 
+                        style="list-style-type: none; " >
+                        <div if:true={it.first} class="list-first"></div>
+                            {it.value.Name} &nbsp; {it.value.Email}
+                        <div if:true={it.last} class="list-last"></div>
+                    </li>
+                </template>
+        </lightning-card>
+    </div>
+
+    <!--
+
+        iterator:properTyName={listofRecord}
+
+        {properTyName.value.Email}
+    -->
+    
+    <!--
+        for(Contact con : contacts){
+
+        }
+    -->
+</template>

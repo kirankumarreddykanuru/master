@@ -1,0 +1,23 @@
+<template>
+    <div class="slds-m-around_small">
+        <lightning-card title="File Upload" icon-name="standard:record">
+            <div id="filedrag" class="filedrag" 
+                ondrag={handleDrag} 
+                ondrop={handleDrop} >
+                Drop files here
+            </div>
+
+            <lightning-input type="file" 
+                label="Choose File" required
+                multiple
+                onchange={handleChange} >
+            </lightning-input> &nbsp;
+            <lightning-button label="Upload File" variant="brand" onclick={handleUpload} >
+                
+            </lightning-button>
+            <div class="slds-m-left_medium">
+                <strong>Selected Files : &nbsp;</strong>{fileName}
+            </div>
+        </lightning-card>
+    </div>
+</template>

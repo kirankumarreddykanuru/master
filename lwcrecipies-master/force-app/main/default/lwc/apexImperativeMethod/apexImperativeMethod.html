@@ -1,0 +1,26 @@
+<template>
+        <lightning-card title="Apex Imperative Method" icon-name="standard:case">
+            <div class="slds-m-around_small">
+                <lightning-input value={subject}
+                    label="Search Cases"
+                    onchange={handleChange}
+                ></lightning-input>
+                <br/>
+                <lightning-button label="Load Cases" onclick={handleLoad} ></lightning-button>
+            </div>
+            <div  class="slds-m-around_small">
+                <template for:each={records} for:item="item">
+                    <p key={item.Id} >
+                        {item.Subject}
+                    </p>  
+                </template>
+            </div>
+            <div class="slds-m-around_small">
+                <template if:true={error} >
+                    <p>
+                        There were error
+                    </p>
+                </template>
+            </div>
+        </lightning-card>
+</template>

@@ -1,0 +1,116 @@
+<template>
+    <template if:true={showSpinner} >
+        <c-spinner ></c-spinner>
+    </template>
+    <lightning-card title="Add New Items" icon-name="standard:record">
+            <div class="slds-m-around_small" >
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                       <tr class="slds-line-height_reset">
+                          <th class="" scope="col">
+                             <div class="slds-truncate" title="Name">Item Name</div>
+                          </th>
+                          <th class="" scope="col">
+                             <div class="slds-truncate" title="Price">Price(in USD)</div>
+                          </th>
+                          <th class="" scope="col">
+                             <div class="slds-truncate" title="Quantity">Quantity</div>
+                          </th>
+                          <th class="" scope="col">
+                             <div class="slds-truncate" title="Weight">Weight(In KG.)</div>
+                          </th>
+                          <th class="" scope="col">
+                                <div class="slds-truncate" title="Actions"></div>
+                            </th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={itemRecords} for:item="item" for:index="index">
+                            <tr class="slds-hint-parent" key={item.Id}>
+                                <td data-label="Name">
+                                    <div class="slds-truncate" title="Item Name">
+                                        <lightning-input type="text" 
+                                            variant="label-hidden"
+                                            name="Name"
+                                            title={index}
+                                            value={item.Name} 
+                                            required
+                                            onchange={handleChangeEvent}
+                                        ></lightning-input>
+                                    </div>
+                                </td>
+                                <td data-label="Price">
+                                    <div class="slds-truncate" title="Price">
+                                        <lightning-input type="number"
+                                            formatter="currency"
+                                            step="1" 
+                                            title={index}
+                                            variant="label-hidden"
+                                            name="Price__c"
+                                            value={item.Price__c} 
+                                            required
+                                            onchange={handleChangeEvent}
+                                        ></lightning-input>
+                                    </div>
+                                </td>
+                                <td data-label="Quantity">
+                                    <div class="slds-truncate" title="Quantity">
+                                        <lightning-input type="number"
+                                            step="1" 
+                                            title={index}
+                                            variant="label-hidden"
+                                            name="Quantity__c"
+                                            value={item.Quantity__c}
+                                            required 
+                                            onchange={handleChangeEvent}
+                                        ></lightning-input>
+                                    </div>
+                                </td>
+                                <td data-label="Weight">
+                                    <div class="slds-truncate" title="Weight">
+                                        <lightning-input type="number"
+                                            step="0.01" 
+                                            title={index}
+                                            variant="label-hidden"
+                                            name="Weight__c"
+                                            value={item.Weight__c} 
+                                            required
+                                            onchange={handleChangeEvent}
+                                        ></lightning-input>
+                                    </div>
+                                </td>
+                                <td>
+                                    <template if:true={index}>
+                                            <lightning-button variant="destructive" 
+                                                icon-name="action:delete"
+                                                icon-position="left" 
+                                                onclick={removeItems} 
+                                                value={index}>
+                                            </lightning-button>
+                                    </template> &nbsp;
+                                    <lightning-button value="Add" 
+                                        icon-name="utility:add"
+                                        variant="brand"
+                                        onclick={addItems} >
+                                    </lightning-button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                 </table>
+                 <div class="slds-p-top_small" >
+                    <lightning-button label="Add Items" variant="brand" value="Add Items" 
+                                      onclick={saveItems} >
+                     
+                    </lightning-button>
+                 </div>
+                 
+            </div>
+        <template if:true={errors} >
+            <div class="slds-m-around_small">
+                <c-error-panel friendly-message="Error Occured" errors={errors} ></c-error-panel>
+            </div>
+        </template>
+        
+    </lightning-card>
+</template>

@@ -1,0 +1,31 @@
+
+<template >
+    <div class="slds-page-header"> <h1>Use Case 2 wired Method</h1>  </div>
+
+    <div class="slds-grid slds-wrap">
+    <template for:each={contacts} for:item="c">
+        <div key={c.Id} class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+    <lightning-card title='Contact' icon-name="standard:contact"> 
+        <p class="slds-p-top_medium slds-m-left_small">{c.Name}</p>
+        <p class="slds-p-top_medium slds-m-left_small">{c.Phone}</p>
+
+        <lightning-formatted-email slot="footer" value={c.Email}> </lightning-formatted-email>
+    </lightning-card>
+</div>
+   
+    </template>
+</div>
+</template>
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+

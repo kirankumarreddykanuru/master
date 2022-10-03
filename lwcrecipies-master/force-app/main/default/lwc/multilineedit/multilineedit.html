@@ -1,0 +1,80 @@
+<template>
+        <div>
+            <lightning-card title="Multi Line Edit" icon-name="custom:custom59">
+                <template if:true={errors}>
+                    <c-error-panel errors={errors} friendly-message="Error While Creating Records" >
+                        
+                    </c-error-panel>
+                </template>
+                <table class=" slds-scrollable_x slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="SR.N.">SR.N.</div>
+                            </th>
+                            <template for:each={columns} for:item="col">
+                                <th class="" scope="col" key={col.apiName}>
+                                    <div class="slds-truncate" title={col.label}>{col.label}</div>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="row" for:index="index">
+                            <tr class="slds-hint-parent" key={row.Id}>
+                                <td key={index}>
+    
+                                </td>
+                                <td key={index}>
+                                    <lightning-input title={index} key={index} variant="label-hidden" value={row.FirstName}
+                                        name="FirstName" onchange={handleChangeEvent}>
+                                    </lightning-input>
+                                </td>
+                                <td key={index}>
+                                    <lightning-input title={index} key={index} variant="label-hidden" value={row.LastName}
+                                        name="LastName" onchange={handleChangeEvent}>
+                                    </lightning-input>
+                                </td>
+    
+                                <td key={index}>
+                                    <lightning-input title={index} key={index} variant="label-hidden" value={row.Email}
+                                        name="Email" type="email" onchange={handleChangeEvent}>
+                                    </lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-combobox name="Title" title={index} key={index} value={row.Title}
+                                        variant="label-hidden" options={options} onchange={handleChangeEvent}>
+                                    </lightning-combobox>
+                                </td>
+                                <td key={index}>
+                                    <lightning-combobox name="Lead Source" title={index} key={index} value={row.LeadSource}
+                                        variant="label-hidden" options={leadSourceOptions} onchange={handleChangeEvent}>
+                                    </lightning-combobox>
+                                </td>
+                                <td key={index}>
+                                    <!-- <c-custom-lookup key={index} index={index} relationshipfield="AccountId"
+                                        iconname="standard:account" object-name="Account" searchfield="Name" class="lookup"
+                                        onselectedrec={getRecordId}>
+                                    </c-custom-lookup> -->
+                                </td>
+                                <td key={index}>
+                                    <template if:true={index}>
+                                        <lightning-button variant="destructive" icon-name="action:delete"
+                                            icon-position="left" onclick={deleteRow} value={index}>
+                                        </lightning-button>
+                                    </template>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+                <lightning-button variant="brand" label="Add Row" onclick={addRow} slot="actions" icon-name="action:new">
+                </lightning-button> &nbsp;&nbsp;
+                <lightning-button variant="brand" class="slds-p-left_small" label="Save Records" icon-name="utility:save"
+                    onclick={saveRows} slot="actions">
+                </lightning-button>
+            </lightning-card>
+        </div>
+    </template>

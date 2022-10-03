@@ -1,0 +1,21 @@
+table, th, td{
+    border: 1px solid black;
+    text-align :center
+  }
+  .row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+  
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
